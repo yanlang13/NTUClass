@@ -17,15 +17,18 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		textView = (TextView) findViewById(R.id.textView1);
+		
 	}
 	
 	
 	public void moveLeft(View view){
-		//取得UI的方式
+		//取得UI的方式(layout下的UI應該都可以用此方法取得，Button也可以)
 		RelativeLayout.LayoutParams params = (LayoutParams) textView.getLayoutParams();
 		//距離左邊邊界的距離
 		params.leftMargin-= 10;
 		textView.setLayoutParams(params);
+		
+		
 	}
 	public void moveRight(View view){
 		RelativeLayout.LayoutParams params = (LayoutParams) textView.getLayoutParams();
