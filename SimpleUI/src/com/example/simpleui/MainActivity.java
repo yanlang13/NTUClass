@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
 
 		button1 = (Button) findViewById(R.id.button1);
 		button1.setText("Send");
+		
 		editText.setOnKeyListener(new OnKeyListener() {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
