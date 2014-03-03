@@ -9,5 +9,6 @@
     <string name="title_activity_display_message">My Message</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_search">search</string>
+    <string name="action_email">search</string>
 
 </resources>
