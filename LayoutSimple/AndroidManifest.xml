@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.androidtraning"
+    package="com.example.layoutsimple"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,28 +8,19 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
-        <!-- "@android:style"才能working，加android在style前，表示這為android內建的 -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light" >
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.androidtraning.MainActivity"
+            android:name="com.example.layoutsimple.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.example.androidtraning.DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
-            android:parentActivityName="com.example.AndroidTraning.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.AndroidTraning.MainActivity" />
         </activity>
     </application>
 
