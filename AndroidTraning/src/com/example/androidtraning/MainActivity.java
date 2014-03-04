@@ -1,7 +1,10 @@
 package com.example.androidtraning;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,8 +24,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		editText = (EditText) findViewById(R.id.edit_message);
+		actionBarColorSetting();
 		KeyEnterCheck();
-
+	
 	}
 
 	// 如果只有return super. ...就不會有setting了
@@ -33,7 +37,13 @@ public class MainActivity extends Activity {
 		inflater.inflate(R.menu.main_activity_actions, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+	
+	//actionBar color setting
+	public void actionBarColorSetting(){
+		ActionBar bar = getActionBar();
+		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#a3ffa3")));
 
+	}
 	
 	//當啟動其它activity時，action bar就會消失了...
 	@Override
