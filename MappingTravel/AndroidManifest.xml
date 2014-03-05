@@ -22,6 +22,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+         <activity
+            android:name="com.example.mappingtravel.TravelMap"
+            android:label="@string/title_activity_travel_map"
+            android:parentActivityName="com.example.mappingtravel.TravelMap" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mappingtravel.MainActivity" />
+        </activity>
+        
+        
     </application>
 
 </manifest>

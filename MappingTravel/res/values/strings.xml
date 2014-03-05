@@ -3,6 +3,9 @@
 
     <string name="app_name">MappingTravel</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+	<string name="MT_Location">Location</string>
+	<string name="MT_Photo">Photo</string>
+	<string name="MT_Imformation">Information</string>
+	<string name="MT_Travel">Travel</string>
+	<string name="title_activity_travel_map">travelmap</string>
 </resources>
