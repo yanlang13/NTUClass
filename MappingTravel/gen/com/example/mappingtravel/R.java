@@ -24,10 +24,15 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int ic_action_email=0x7f020000;
+        public static final int ic_action_search=0x7f020001;
+        public static final int ic_action_share=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
         public static final int GridLayout1=0x7f090000;
+        public static final int action_email=0x7f090008;
+        public static final int action_search=0x7f090007;
         public static final int action_settings=0x7f090006;
         public static final int button1=0x7f090001;
         public static final int button2=0x7f090002;
@@ -41,15 +46,18 @@ public final class R {
     }
     public static final class menu {
         public static final int main=0x7f080000;
+        public static final int main_activity_actions=0x7f080001;
     }
     public static final class string {
-        public static final int MT_Imformation=0x7f060004;
-        public static final int MT_Location=0x7f060002;
-        public static final int MT_Photo=0x7f060003;
-        public static final int MT_Travel=0x7f060005;
-        public static final int action_settings=0x7f060001;
+        public static final int Main_Imformation=0x7f060004;
+        public static final int Main_Location=0x7f060002;
+        public static final int Main_Photo=0x7f060003;
+        public static final int Main_TravelList=0x7f060005;
+        public static final int action_search=0x7f060006;
+        public static final int action_settings=0x7f060008;
+        public static final int action_share=0x7f060007;
         public static final int app_name=0x7f060000;
-        public static final int title_activity_travel_map=0x7f060006;
+        public static final int title_activity_travel_map=0x7f060001;
     }
     public static final class style {
         /** 

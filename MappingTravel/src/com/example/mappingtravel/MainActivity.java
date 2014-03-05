@@ -1,14 +1,14 @@
 package com.example.mappingtravel;
 
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends Activity {
@@ -17,31 +17,73 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		actionBarColorSetting();
+		setActionBarColor();
 	}
 
+	// menu開始==========================================================
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_activity_actions, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
-	
-	public void MtTravel(View view){
+
+	// actionBar上面的功能
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_search:
+			openSearch();
+			return true;
+		case R.id.action_settings:
+			openSettings();
+			return true;
+		case R.id.action_email:
+			openEmail();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	// menu的功能
+	public void openSearch() {
+	}
+
+	// menu的功能
+	public void openSettings() {
+	}
+
+	// menu的功能
+	public void openEmail() {
+	}
+
+	// actionBar color setting
+	public void setActionBarColor() {
+		// 因為color是寫在res資料夾下，所以使用Resources來叫出來。
+		Resources res = getResources();
+		int actionBarColor = res.getColor(R.color.actionBarColor);
+		ActionBar bar = getActionBar();
+		bar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
+	}
+
+	// menu結束==========================================================
+
+	// 選單開始=========================================================
+	public void MtTravel(View view) {
 		Intent intent = new Intent(this, TravelMap.class);
 		startActivity(intent);
 	}
-	public void MtLocation(View view){}
-	public void MtPhoto(View view){}
-	public void MtImformation(View view){}
 
-	//actionBar color setting
-	public void actionBarColorSetting(){
-	//因為color是寫在res資料夾下，所以使用Resources來叫出來。
-	Resources res = getResources();
-	int color = res.getColor(R.color.actionBarColor);
-	ActionBar bar = getActionBar();
-	bar.setBackgroundDrawable(new ColorDrawable(color));
-
+	public void MtLocation(View view) {
 	}
+
+	public void MtPhoto(View view) {
+	}
+
+	public void MtImformation(View view) {
+	}
+	// 選單結束=========================================================
+
 }
