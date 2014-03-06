@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 		// 實體化變數(記得要cast，因為findViewById是傳回View types)
 		editText = (EditText) findViewById(R.id.editText1);
 		editText.setHint("type something...");
-
+		
 		button1 = (Button) findViewById(R.id.button1);
 		button1.setText("Send");
 		
