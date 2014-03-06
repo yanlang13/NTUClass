@@ -24,9 +24,9 @@
         </activity>
         
          <activity
-            android:name="com.example.mappingtravel.TravelMap"
+            android:name="com.example.mappingtravel.MainTravelMap"
             android:label="@string/title_activity_travel_map"
-            android:parentActivityName="com.example.mappingtravel.TravelMap" >
+            android:parentActivityName="com.example.mappingtravel.MainTravelMap" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mappingtravel.MainActivity" />

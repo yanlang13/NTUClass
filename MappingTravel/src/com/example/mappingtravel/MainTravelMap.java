@@ -1,27 +1,38 @@
+//主要頁面
+
 package com.example.mappingtravel;
 
-import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-public class MainActivity extends Activity {
-
+public class MainTravelMap extends Activity {
+	// Additionally, you must add the @SuppressLint("NewApi") tag to the
+	// onCreate() method to avoid lint errors.
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		setActionBarColor();
+		setContentView(R.layout.activity_travelmap);
+
+		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			// Show the Up button in the action bar.
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
+	// There's also an implementation of onOptionsItemSelected()
+	// which handles the behavior for the action bar's Up behavior.
+	// Keep this one the way it is.
 	// menu開始==========================================================
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,8 +71,7 @@ public class MainActivity extends Activity {
 	// menu的功能
 	public void openEmail() {
 	}
-
-	// actionBar color setting
+	
 	public void setActionBarColor() {
 		// 因為color是寫在res資料夾下，所以使用Resources來叫出來。
 		Resources res = getResources();
@@ -69,37 +79,5 @@ public class MainActivity extends Activity {
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
 	}
-
 	// menu結束==========================================================
-
-	// 選單開始=========================================================
-	public void MtTravel(View view) {
-		Intent intent = new Intent(this, MainTravelMap.class);
-		startActivity(intent);
-	}
-
-	public void MtLocation(View view) {
-		//顯示距離layout邊界的功能
-		PrButtonPosition();
-	}
-
-	public void MtPhoto(View view) {
-		//實作adapter功能
-	}
-
-	public void MtImformation(View view) {
-	}
-	// 選單結束=========================================================
-	
-	//其它功能區開始========================================================
-	public void PrButtonPosition(){
-		//目前是顯示距離layout邊界的功能
-				Button lButton = (Button) findViewById(R.id.button_Location);
-				Integer left = lButton.getLeft();
-				Integer top = lButton.getTop();
-				String s = "left distance: " + left.toString() 
-						+ ", Top distance: " +top.toString(); 
-				Toast.makeText(this, s, Toast.LENGTH_LONG).show();
-	}
-	//其它功能區開始========================================================
 }
