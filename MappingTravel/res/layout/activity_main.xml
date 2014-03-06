@@ -24,14 +24,14 @@
         android:columnCount="1" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_Travel"
             android:text="@string/Main_TravelList" 
             android:onClick="MtTravel"
         />
 			
         
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_Location"
             android:text="@string/Main_Location" 
             android:layout_gravity="right|top"
             android:layout_column="0"
@@ -40,7 +40,7 @@
         />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_Photo"
             android:text="@string/Main_Photo" 
             android:layout_gravity="left|bottom"
             android:layout_column="0"
@@ -49,7 +49,7 @@
         />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button_Information"
             android:text="@string/Main_Imformation" 
             android:layout_gravity="right|bottom"
             android:layout_column="0"

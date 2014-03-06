@@ -1,6 +1,7 @@
 package com.example.mappingtravel;
 
 import android.os.Bundle;
+import android.R.integer;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -77,6 +80,12 @@ public class MainActivity extends Activity {
 	}
 
 	public void MtLocation(View view) {
+		Button lButton = (Button) findViewById(R.id.button_Location);
+		Integer left = lButton.getLeft();
+		Integer top = lButton.getTop();
+		String s = "left distance: " + left.toString() 
+				+ ", Top distance: " +top.toString(); 
+		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 	}
 
 	public void MtPhoto(View view) {
