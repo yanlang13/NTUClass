@@ -22,8 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-         <activity
+        <activity
             android:name="com.example.mappingtravel.MainTravelMap"
             android:label="@string/title_activity_travel_map"
             android:parentActivityName="com.example.mappingtravel.MainTravelMap" >
@@ -31,8 +30,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mappingtravel.MainActivity" />
         </activity>
-        
-        
+        <activity
+            android:name="com.example.mappingtravel.MainPhoto"
+            android:label="@string/title_activity_main_photo" 
+            android:parentActivityName="com.example.mappingtravel.MainPhoto" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mappingtravel.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

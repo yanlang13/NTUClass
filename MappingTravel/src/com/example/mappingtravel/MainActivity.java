@@ -79,27 +79,31 @@ public class MainActivity extends Activity {
 	}
 
 	public void MtLocation(View view) {
-		//顯示距離layout邊界的功能
+		// 顯示距離layout邊界的功能
 		PrButtonPosition();
 	}
 
 	public void MtPhoto(View view) {
-		//實作adapter功能
+		Intent intent = new Intent(this, MainPhoto.class);
+		startActivity(intent);
 	}
 
 	public void MtImformation(View view) {
 	}
+
 	// 選單結束=========================================================
-	
-	//其它功能區開始========================================================
-	public void PrButtonPosition(){
-		//目前是顯示距離layout邊界的功能
-				Button lButton = (Button) findViewById(R.id.button_Location);
-				Integer left = lButton.getLeft();
-				Integer top = lButton.getTop();
-				String s = "left distance: " + left.toString() 
-						+ ", Top distance: " +top.toString(); 
-				Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+
+	// 其它功能區開始========================================================
+	public void PrButtonPosition() {
+		// 目前是顯示距離layout邊界的功能
+		Button lButton = (Button) findViewById(R.id.button_Location);
+		Integer left = lButton.getLeft();
+		Integer top = lButton.getTop();
+		String s = "left distance: " + left.toString() + ", Top distance: "
+				+ top.toString();
+		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 	}
-	//其它功能區開始========================================================
+
+
+	// 其它功能區開始========================================================
 }
