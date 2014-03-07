@@ -6,26 +6,18 @@ import java.util.HashMap;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.ListActivity;
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 //注意是 extends ListActivity 而非 activity
 
-public class MainPhoto extends ListActivity {
+public class MainPhoto extends ListActivity{
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +25,10 @@ public class MainPhoto extends ListActivity {
 		// 不能使用原先的layout，用了會出現錯誤
 		// setContentView(R.layout.activity_main_photo);
 		// 簡易ListArray選單(view)
-		 PrSetListAdapter();
+//		 PrSetListAdapter();
 
 		// 自定義的listAdapter
-//		PrUserListAdapter();
+		PrUserListAdapter();
 		
 		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -85,7 +77,7 @@ public class MainPhoto extends ListActivity {
 		}
 
 		// 新增SimpleAdapter
-		adapter = new SimpleAdapter(this, list, R.layout.activity_main_photo,
+		adapter = new SimpleAdapter(this, list, R.layout.photo_format,
 				new String[] { "pic", "food", "place", "rating" }, new int[] {
 						R.id.imageView1, R.id.textView1, R.id.textView2,
 						R.id.textView3 });
