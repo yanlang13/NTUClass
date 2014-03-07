@@ -18,30 +18,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 //注意是 extends ListActivity 而非 activity
+
 public class MainPhoto extends ListActivity {
-	
-	Context context;
-	
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setActionBarColor();
 		// 不能使用原先的layout，用了會出現錯誤
 		// setContentView(R.layout.activity_main_photo);
 		// 簡易ListArray選單(view)
-		// PrSetListAdapter();
+		 PrSetListAdapter();
 
 		// 自定義的listAdapter
-		PrUserListAdapter();
+//		PrUserListAdapter();
 		
-		context =this;
-
 		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			// Show the Up button in the action bar.
@@ -49,61 +45,11 @@ public class MainPhoto extends ListActivity {
 		}
 	}
 
-	// menu開始==========================================================
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu items for use in the action bar
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_activity_actions, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	// actionBar上面的功能
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_search:
-			openSearch();
-			return true;
-		case R.id.action_settings:
-			openSettings();
-			return true;
-		case R.id.action_email:
-			openEmail();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	// menu的功能
-	public void openSearch() {
-	}
-
-	// menu的功能
-	public void openSettings() {
-	}
-
-	// menu的功能
-	public void openEmail() {
-	}
-
-	// actionBar color setting
-	public void setActionBarColor() {
-		// 因為color是寫在res資料夾下，所以使用Resources來叫出來。
-		Resources res = getResources();
-		int actionBarColor = res.getColor(R.color.actionBarColor);
-		ActionBar bar = getActionBar();
-		bar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
-	}
-
-	// menu結束==========================================================
 	// 其他功能區開始==========================================================
 	public void PrSetListAdapter() {
 		String[] mStrings = new String[] { "大餅包小餅", "蚵仔煎", "東山鴨頭", "臭豆腐" };
 		// 注意：不能使用main中的layout，用了會出現錯誤
 		// setContentView(R.layout.main);
-
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, mStrings));
 
