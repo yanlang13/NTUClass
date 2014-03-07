@@ -60,6 +60,10 @@ public final class R {
         public static final int main_activity_actions=0x7f080001;
     }
     public static final class string {
+        public static final int Image_Main_Name=0x7f06000c;
+        public static final int Image_Sub_1st=0x7f06000d;
+        public static final int Image_Sub_2nd=0x7f06000e;
+        public static final int Image_list=0x7f06000b;
         public static final int Main_Imformation=0x7f060005;
         public static final int Main_Location=0x7f060003;
         public static final int Main_Photo=0x7f060004;

@@ -12,5 +12,9 @@
     <string name="action_share">share</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="Image_list">Image List:</string>
+    <string name="Image_Main_Name">FoodName</string>
+    <string name="Image_Sub_1st">Location</string>
+    <string name="Image_Sub_2nd">Score</string>
 
 </resources>
