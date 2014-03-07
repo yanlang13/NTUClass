@@ -8,16 +8,25 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 //注意是 extends ListActivity 而非 activity
 public class MainPhoto extends ListActivity {
+	
+	Context context;
+	
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,8 @@ public class MainPhoto extends ListActivity {
 
 		// 自定義的listAdapter
 		PrUserListAdapter();
+		
+		context =this;
 
 		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -113,7 +124,8 @@ public class MainPhoto extends ListActivity {
 		int[] mPics = new int[] { R.drawable.ic_red_number_1,
 				R.drawable.ic_red_number_2, R.drawable.ic_red_number_3,
 				R.drawable.ic_red_number_4, R.drawable.ic_red_number_5 };
-
+		
+		String[] mtoast = new String[] { "z", "z", "z", "z", "z", };
 		SimpleAdapter adapter;
 
 		// 把資料加入ArrayList中
@@ -137,6 +149,17 @@ public class MainPhoto extends ListActivity {
 
 		// 啟用按鍵過濾功能
 		getListView().setTextFilterEnabled(true);
+		
+		//點擊item會有所反應
+		getListView().setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Log.e("test", ""+arg2);
+			}
+			
+		});
+		
 	}
 }
 // 其他功能區結束==========================================================
