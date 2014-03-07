@@ -20,10 +20,11 @@ public class MainPhoto extends ActivityWithMenu {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_photo);
-
 		// 自定義的listAdapter
 		PrUserListAdapter();
-
+		
+		setActionBarColor();
+		
 		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			// Show the Up button in the action bar.
