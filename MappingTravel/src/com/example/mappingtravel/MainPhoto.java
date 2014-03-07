@@ -5,6 +5,10 @@ import java.util.HashMap;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -63,15 +67,16 @@ public class MainPhoto extends ActivityWithMenu {
 		listView.setAdapter(adapter);
 
 		// 啟用按鍵過濾功能
-		// listView.setTextFilterEnabled(true);
+		listView.setTextFilterEnabled(true);
 		// 點擊item會有所反應
-		// listView.setOnItemClickListener(new OnItemClickListener(){
-		// @Override
-		// public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-		// long arg3) {
-		// Log.e("test", ""+arg2);
-		// }
-		// });
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				int arg21 = arg2+1;
+				Log.e("IamgePress", arg21+"");
+			}
+		});
 	}
 	// 其他功能區結束==========================================================
 }
