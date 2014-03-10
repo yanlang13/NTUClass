@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import android.os.Build;
 import android.os.Bundle;
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;

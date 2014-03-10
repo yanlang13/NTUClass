@@ -1,25 +1,20 @@
 package com.example.mappingtravel;
 
+
 import android.os.Bundle;
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 public class MainActivity extends ActivityWithMenu {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setActionBarColor();
 	}
-
 
 	// 選單開始=========================================================
 	public void MtTravel(View view) {
@@ -35,6 +30,11 @@ public class MainActivity extends ActivityWithMenu {
 	public void MtPhoto(View view) {
 		Intent intent = new Intent(this, MainPhoto.class);
 		startActivity(intent);
+
+		/*
+		 * //intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。 Intent intent = new Intent();
+		 * intent.setClass(this, MessageActivity.class); startActivity(intent);
+		 */
 	}
 
 	public void MtImformation(View view) {
@@ -52,7 +52,6 @@ public class MainActivity extends ActivityWithMenu {
 				+ top.toString();
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 	}
-
 
 	// 其它功能區開始========================================================
 }

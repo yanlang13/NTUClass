@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;

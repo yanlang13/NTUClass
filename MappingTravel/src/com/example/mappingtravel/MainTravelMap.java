@@ -3,15 +3,8 @@
 package com.example.mappingtravel;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 public class MainTravelMap extends ActivityWithMenu {
 	// Additionally, you must add the @SuppressLint("NewApi") tag to the
