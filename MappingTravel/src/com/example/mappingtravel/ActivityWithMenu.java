@@ -44,7 +44,8 @@ public abstract class ActivityWithMenu extends Activity {
 			shareActionProvider.setShareIntent(shareIntent);
 		}
 	}
-	//Let see how we create an intent to share with other application
+
+	// Let see how we create an intent to share with other application
 	private Intent createShareIntent() {
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
 		shareIntent.setType("text/plain");
@@ -64,9 +65,6 @@ public abstract class ActivityWithMenu extends Activity {
 		case R.id.action_search:
 			doSearch();
 			return true;
-		case R.id.action_share:
-			doShare();
-			return true;
 		case R.id.action_settings:
 			doSettings();
 			return true;
@@ -78,11 +76,6 @@ public abstract class ActivityWithMenu extends Activity {
 	// menu的功能
 	public void doSearch() {
 		Log.e("checkIn", "dosearch");
-	}
-
-	// menu的功能
-
-	public void doShare() {
 	}
 
 	// menu的功能

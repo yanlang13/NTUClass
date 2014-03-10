@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import android.os.Build;
 import android.os.Bundle;
+import android.R.integer;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.text.StaticLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,10 +61,12 @@ public class MainPhoto extends ActivityWithMenu {
 		}
 
 		// 新增SimpleAdapter
+		String [] from = { "pic", "food", "place", "rating" };
+		int [] to = {R.id.imageView1, R.id.textView1, R.id.textView2,
+				R.id.textView3 };
+		
 		adapter = new SimpleAdapter(this, list, R.layout.photo_format,
-				new String[] { "pic", "food", "place", "rating" }, new int[] {
-						R.id.imageView1, R.id.textView1, R.id.textView2,
-						R.id.textView3 });
+				from, to);
 
 		// ListActivity設定adapter
 		listView.setAdapter(adapter);
