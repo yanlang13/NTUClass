@@ -2,7 +2,10 @@ package com.example.simpleui;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -11,12 +14,15 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ShareActionProvider;
+import android.widget.Space;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	private EditText editText;
 	private Button button1;
+	private SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,23 +31,39 @@ public class MainActivity extends Activity {
 		// project clean 如果無法運作的話 (build automatically打開才會同步 )
 		setContentView(R.layout.activity_main);
 
+		// 儲存資料，偏設定。EX:不要震動等等
+		sp = getSharedPreferences("settings", Context.MODE_PRIVATE);
+
 		// 實體化變數(記得要cast，因為findViewById是傳回View types)
 		editText = (EditText) findViewById(R.id.editText1);
 		editText.setHint("type something...");
-		
+
 		button1 = (Button) findViewById(R.id.button1);
 		button1.setText("Send");
-		
+
 		editText.setOnKeyListener(new OnKeyListener() {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+				// onkey時，就是要抓得暫存資料(寫入)
+
+				/*
+				 * All changes you make in an editor are batched, and not copied
+				 * back to the original SharedPreferences until you call
+				 * commit() or apply()
+				 */
+
+				Editor editor = sp.edit();
+				editor.putString("text", editText.getText().toString());
+				editor.commit();
+
 				Log.d("debug",
-						//按一次key會有兩個keyEvent，分別為down and up
+				// 按一次key會有兩個keyEvent，分別為down and up
 						"keyOcde =" + keyCode + "keyEvent=" + event.getAction());
 				if (event.getAction() == KeyEvent.ACTION_DOWN) {
 					if (keyCode == KeyEvent.KEYCODE_ENTER) {
 						sendMessage();
-						//return true後，就不會在執行下一個步驟(新增一行)
+						// return true後，就不會在執行下一個步驟(新增一行)
 						return true;
 					}
 				}
@@ -56,6 +78,10 @@ public class MainActivity extends Activity {
 				sendMessage();
 			}
 		});
+
+		// 取出暫存的資料
+		editText.setText(sp.getString("text", ""));
+
 	}
 
 	// method 必須是public 然後丟入View
@@ -68,11 +94,11 @@ public class MainActivity extends Activity {
 		String text = editText.getText().toString();
 		editText.getText().clear();
 		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-		
-		//intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。
+
+		// intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。
 		Intent intent = new Intent();
 		intent.setClass(this, MessageActivity.class);
-		//putExtra Key, Value的概念，extra的意思就是指不影響intent的call
+		// putExtra Key, Value的概念，extra的意思就是指不影響intent的call
 		intent.putExtra("text", text);
 		startActivity(intent);
 	}
