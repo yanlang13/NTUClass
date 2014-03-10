@@ -105,6 +105,11 @@ public class MainActivity extends Activity {
 
 	private void sendMessage() {
 		String text = editText.getText().toString();
+		
+		if (isEncrypt.isChecked()) {
+			text = "*****";
+		}
+
 		editText.getText().clear();
 		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 
