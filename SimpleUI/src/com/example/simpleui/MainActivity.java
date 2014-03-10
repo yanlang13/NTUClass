@@ -17,8 +17,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.ShareActionProvider;
-import android.widget.Space;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
