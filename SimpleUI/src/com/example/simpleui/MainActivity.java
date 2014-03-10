@@ -72,6 +72,8 @@ public class MainActivity extends Activity {
 		//intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。
 		Intent intent = new Intent();
 		intent.setClass(this, MessageActivity.class);
+		//putExtra Key, Value的概念，extra的意思就是指不影響intent的call
+		intent.putExtra("text", text);
 		startActivity(intent);
 	}
 
