@@ -2,6 +2,7 @@ package com.example.simpleui;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -67,6 +68,11 @@ public class MainActivity extends Activity {
 		String text = editText.getText().toString();
 		editText.getText().clear();
 		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		
+		//intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。
+		Intent intent = new Intent();
+		intent.setClass(this, MessageActivity.class);
+		startActivity(intent);
 	}
 
 	@Override
