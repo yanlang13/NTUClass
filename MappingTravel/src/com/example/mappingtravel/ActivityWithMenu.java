@@ -16,17 +16,19 @@ public abstract class ActivityWithMenu extends Activity {
 		menuInflater.inflate(R.menu.main_activity_actions, menu);
 		return true;
 	} 
-	
 	// There's also an implementation of onOptionsItemSelected()
 	// which handles the behavior for the action bar's Up behavior.
 	// Keep this one the way it is.
-	// menu開始==========================================================
 		@Override
 		public boolean onCreateOptionsMenu(Menu menu) {
 			// Inflate the menu items for use in the action bar
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.main_activity_actions, menu);
+			
+			// Get the menu item.
 			return super.onCreateOptionsMenu(menu);
+
+
 		}
 
 		// actionBar上面的功能
@@ -59,6 +61,7 @@ public abstract class ActivityWithMenu extends Activity {
 		public void openEmail() {
 		}
 
+		//menu的其他設定=======================================================
 		// actionBar color setting
 		public void setActionBarColor() {
 			// 因為color是寫在res資料夾下，所以使用Resources來叫出來。
@@ -68,6 +71,6 @@ public abstract class ActivityWithMenu extends Activity {
 			bar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
 		}
 
-		// menu結束==========================================================
+	
 }
 

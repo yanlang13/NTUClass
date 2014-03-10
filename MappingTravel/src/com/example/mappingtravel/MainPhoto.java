@@ -5,6 +5,8 @@ import java.util.HashMap;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.text.StaticLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +22,7 @@ public class MainPhoto extends ActivityWithMenu {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_photo);
+		
 		// 自定義的listAdapter
 		PrUserListAdapter();
 		
