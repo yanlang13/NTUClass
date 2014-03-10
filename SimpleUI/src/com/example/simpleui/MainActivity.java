@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ShareActionProvider;
 import android.widget.Space;
@@ -22,6 +25,7 @@ public class MainActivity extends Activity {
 
 	private EditText editText;
 	private Button button1;
+	private CheckBox isEncrypt;
 	private SharedPreferences sp;
 
 	@Override
@@ -31,7 +35,8 @@ public class MainActivity extends Activity {
 		// project clean 如果無法運作的話 (build automatically打開才會同步 )
 		setContentView(R.layout.activity_main);
 
-		// 儲存資料，偏設定。EX:不要震動等等
+		// 儲存資料(多數型態都可)，偏設定。EX:不要震動等等
+		// sharedPreferences是把資料寫到package下的shared_prefs(不建議存這裡，危險，效率差)
 		sp = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
 		// 實體化變數(記得要cast，因為findViewById是傳回View types)
@@ -45,16 +50,14 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-				// onkey時，就是要抓得暫存資料(寫入)
-
 				/*
-				 * All changes you make in an editor are batched, and not copied
-				 * back to the original SharedPreferences until you call
-				 * commit() or apply()
+				 * onkey時，就是要抓得暫存資料(寫入) All changes you make in an editor are
+				 * batched, and not copied back to the original
+				 * SharedPreferences until you call commit() or apply()
 				 */
-
 				Editor editor = sp.edit();
 				editor.putString("text", editText.getText().toString());
+				// commit會一次更動所有的editor內容
 				editor.commit();
 
 				Log.d("debug",
@@ -79,9 +82,21 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		// 取出暫存的資料
+		// 取回暫存的資料
 		editText.setText(sp.getString("text", ""));
 
+		// checkbox的暫存
+		isEncrypt = (CheckBox) findViewById(R.id.checkBox1);
+		isEncrypt.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				Editor editor = sp.edit();
+				editor.putBoolean("isEncrypt", false);
+				editor.commit();
+			}
+		});
+		isEncrypt.setChecked(sp.getBoolean("isEncrypt", false));
 	}
 
 	// method 必須是public 然後丟入View
