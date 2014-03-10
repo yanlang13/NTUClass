@@ -36,9 +36,9 @@ public final class R {
     }
     public static final class id {
         public static final int GridLayout1=0x7f090000;
-        public static final int action_email=0x7f09000c;
         public static final int action_search=0x7f09000b;
         public static final int action_settings=0x7f09000a;
+        public static final int action_share=0x7f09000c;
         public static final int button_Information=0x7f090004;
         public static final int button_Location=0x7f090002;
         public static final int button_Photo=0x7f090003;

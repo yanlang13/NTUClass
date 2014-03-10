@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-     <!-- Search, should appear as action button -->
-    <item android:id="@+id/action_search"
-          android:icon="@drawable/ic_action_search"
-          android:title="@string/action_search"
-          android:showAsAction="ifRoom" />
-    
-    <!--  Email, should appear as action button -->
-        <item android:id="@+id/action_email"
-          android:icon="@drawable/ic_action_share"
-          android:title="@string/action_share"
-          android:showAsAction="ifRoom" />
-    
+
+    <!-- Search, should appear as action button -->
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_search"/>
+
+    <!-- Email, should appear as action button -->
+    <item
+        android:id="@+id/action_share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:icon="@drawable/ic_action_share"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_share"/>
+
     <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:showAsAction="never" />
-    
+    <item
+        android:id="@+id/action_settings"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
 
 </menu>
