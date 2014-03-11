@@ -6,7 +6,7 @@
     <string name="title_activity_main_photo">My Photo</string>
     <string name="Main_Location">Add Location</string>
     <string name="Main_Photo">Add Photo</string>
-    <string name="Main_Imformation">Add Information</string>
+    <string name="Main_NewTravel">New Travel</string>
     <string name="Main_TravelList">Travel List</string>
     <string name="action_search">search</string>
     <string name="action_share">share</string>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <color name="actionBarColor">#5DBE00</color>
-    
+   <color name="actionBarColor_lightgreen">#5DBE00</color>
+    <color name="actionBarColor_darkgreen">#006600</color>
 </resources>

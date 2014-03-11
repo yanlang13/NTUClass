@@ -90,8 +90,8 @@ public abstract class ActivityWithMenu extends Activity {
 	public void setActionBarColor() {
 		// 因為color是寫在res資料夾下，所以使用Resources來叫出來。
 		Resources res = getResources();
-		int actionBarColor = res.getColor(R.color.actionBarColor);
 		ActionBar bar = getActionBar();
+		int actionBarColor = res.getColor(R.color.actionBarColor_lightgreen);
 		bar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
 	}
 

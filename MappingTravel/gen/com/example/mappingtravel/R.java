@@ -11,7 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int actionBarColor=0x7f040000;
+        public static final int actionBarColor_darkgreen=0x7f040001;
+        public static final int actionBarColor_lightgreen=0x7f040000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -64,8 +65,8 @@ public final class R {
         public static final int Image_Sub_1st=0x7f06000d;
         public static final int Image_Sub_2nd=0x7f06000e;
         public static final int Image_list=0x7f06000b;
-        public static final int Main_Imformation=0x7f060005;
         public static final int Main_Location=0x7f060003;
+        public static final int Main_NewTravel=0x7f060005;
         public static final int Main_Photo=0x7f060004;
         public static final int Main_TravelList=0x7f060006;
         public static final int action_search=0x7f060007;

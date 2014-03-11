@@ -35,7 +35,7 @@ public class MessageActivity extends Activity {
 		try {
 			// mode是指寫檔方式。。。存檔位置 手機沒root就看不到。 package-data-data-files
 			FileOutputStream fos = openFileOutput("history.txt",
-					Context.MODE_APPEND);
+					Context. MODE_APPEND);
 			// write有三種，這邊使用一個byte array (string to byte array)
 			fos.write(text.getBytes());
 		} catch (FileNotFoundException e) {
