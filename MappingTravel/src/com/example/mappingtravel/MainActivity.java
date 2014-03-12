@@ -1,6 +1,8 @@
 package com.example.mappingtravel;
 
 
+import java.security.PublicKey;
+
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
@@ -18,7 +20,7 @@ public class MainActivity extends ActivityWithMenu {
 
 	// 選單開始=========================================================
 	//intent讀this，所以要傳入view
-	public void MtTravel(View view) {
+	public void MtTravelList(View view) {
 		Intent intent = new Intent(this, MainTravelList.class);
 		startActivity(intent);
 	}
@@ -31,12 +33,17 @@ public class MainActivity extends ActivityWithMenu {
 	public void MtPhoto(View view) {
 		Intent intent = new Intent(this, MainPhoto.class);
 		startActivity(intent);
-
+	}
+	
+	public void MtNewTravel(View view){
+		Intent intent = new Intent(this, MainNewTravel.class);
+		startActivity(intent);
+	}
+	
 		/*
 		 * //intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。 Intent intent = new Intent();
 		 * intent.setClass(this, MessageActivity.class); startActivity(intent);
 		 */
-	}
 
 	public void MtImformation(View view) {
 	}

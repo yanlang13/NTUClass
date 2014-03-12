@@ -26,7 +26,7 @@
         <Button
             android:id="@+id/button_Travel"
             android:text="@string/Main_TravelList" 
-            android:onClick="MtTravel"
+            android:onClick="MtTravelList"
         />
 			
         
@@ -49,12 +49,12 @@
         />
 
         <Button
-            android:id="@+id/button_Information"
+            android:id="@+id/button_NewMap"
             android:text="@string/Main_NewTravel" 
             android:layout_gravity="right|bottom"
             android:layout_column="0"
             android:layout_row="0"
-            android:onClick="MtImformation"
+            android:onClick="MtNewTravel"
         />
 
     </GridLayout>

@@ -38,6 +38,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mappingtravel.MainActivity" />
         </activity>
+        <activity
+            android:name="com.example.mappingtravel.MainNewTravel"
+            android:label="@string/title_activity_main_photo"
+            android:parentActivityName="com.example.mappingtravel.MainNewTravel" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mappingtravel.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
