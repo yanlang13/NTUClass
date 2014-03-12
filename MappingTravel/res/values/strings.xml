@@ -16,5 +16,6 @@
     <string name="Image_Main_Name">FoodName</string>
     <string name="Image_Sub_1st">Location</string>
     <string name="Image_Sub_2nd">Score</string>
+    <string name="TravelList_shareButton">Share!</string>
 
 </resources>
