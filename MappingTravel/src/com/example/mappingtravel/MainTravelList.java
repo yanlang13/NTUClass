@@ -4,11 +4,12 @@ package com.example.mappingtravel;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainTravelMap extends ActivityWithMenu {
+public class MainTravelList extends ActivityWithMenu {
 	// Additionally, you must add the @SuppressLint("NewApi") tag to the
 	// onCreate() method to avoid lint errors.
 	@SuppressLint("NewApi")
@@ -31,5 +32,13 @@ public class MainTravelMap extends ActivityWithMenu {
 		intent.setType("text/plain");
 		intent.putExtra(android.content.Intent.EXTRA_TEXT, "Share map for the others.");
 		startActivity(intent); 
+	}
+	
+	//link to google
+	public void LinktoWebsite(View view){
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		String uriString = "https://www.google.com.tw/";
+		intent.setData(Uri.parse(uriString));
+		startActivity(intent);
 	}
 }

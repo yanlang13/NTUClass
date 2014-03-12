@@ -19,7 +19,7 @@ public class MainActivity extends ActivityWithMenu {
 	// 選單開始=========================================================
 	//intent讀this，所以要傳入view
 	public void MtTravel(View view) {
-		Intent intent = new Intent(this, MainTravelMap.class);
+		Intent intent = new Intent(this, MainTravelList.class);
 		startActivity(intent);
 	}
 

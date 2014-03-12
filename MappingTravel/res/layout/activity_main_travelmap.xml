@@ -12,10 +12,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/shareMapButton"
+        android:id="@+id/TravelList_shareMapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="shareMap"
-        android:text="@string/TravelList_shareButton" />
+        android:text="@string/TravelList_shareMapButton" />
+
+    <Button
+        android:id="@+id/TravelLit_LinktoWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="LinktoWebsite"
+        android:text="@string/TravelList_LinktoWebButton" />
 
 </LinearLayout>

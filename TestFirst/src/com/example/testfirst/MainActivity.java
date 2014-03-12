@@ -56,21 +56,12 @@ public class MainActivity extends ActionBarActivity {
 
 	
 	public void ButtonOnClick(View view){
-//		Intent intent = new Intent(this, SecondActivity.class);
-//		Bundle bundle = new Bundle();
-//		bundle.putString("Name", "Wang");
-//		bundle.putDouble("Age", 25.0);
-//		intent.putExtras(bundle);
-		
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		intent.putExtra(android.content.Intent.EXTRA_TEXT, "News for you!");
-		startActivity(intent); 
-		
-//		Intent intent1 = new Intent(intent.ACTION_VIEW);
-//		String uriString = "https://www.google.com.tw/";
-//		intent1.setData(Uri.parse(uriString));
-//		startActivity(intent1);
+		Intent intent = new Intent(this, SecondActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("Name", "Wang");
+		bundle.putDouble("Age", 25.0);
+		intent.putExtras(bundle);
+		startActivity(intent);
 		
 	}
 	//¤º«Ø
