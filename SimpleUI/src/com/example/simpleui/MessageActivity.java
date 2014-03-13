@@ -4,13 +4,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
-
-
 
 public class MessageActivity extends Activity {
 	private TextView textView;
@@ -20,47 +23,33 @@ public class MessageActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_message);
-
-		// getIntent就是拿到MainActivity的，所以拿的是key(兩者都是String name)
-		String text = getIntent().getStringExtra("text");
-		writeFile(text);
-
 		textView = (TextView) findViewById(R.id.message);
-		textView.setText(readFile());
-
+		getData();
 	}
 
-	// 寫一個文字檔，再讀出來(串流-水管說)
-	private void writeFile(String text) {
-		// 隔開資料，方便確認。
-		text += "\n";
-
+	public void getData() {
+		// 填目標class
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("message");
 		try {
-			// mode是指寫檔方式。。。存檔位置 手機沒root就看不到。 package-data-data-files
-			FileOutputStream fos = openFileOutput("history.txt",
-					Context.MODE_APPEND);
-			// write有三種，這邊使用一個byte array (string to byte array)
-			fos.write(text.getBytes());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private String readFile() {
-		// 提高buffer，要確定量小於這個。一般用while做到沒有值為止。
-		try {
-			FileInputStream fis = openFileInput("history.txt");
-			byte[] buffer = new byte[1024];
-			fis.read(buffer);
-			return new String(buffer);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+			String result = "";
+			// query.find 有兩種
+			List<ParseObject> messages = query.find();
+			for(ParseObject message: messages){
+				// foreach中 每一個message都是parseobject
+				// 所以要用getString (key);
+				String text = message.getString("text");
+				boolean isEncrypt = message.getBoolean("isEncrypt");
+				result += text + "," + isEncrypt + "\n";
+			}
+			textView.setText(result);
+			
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+
+
+
+
 	}
 }

@@ -1,5 +1,7 @@
 package com.example.simpleui;
 
+import javax.security.auth.callback.Callback;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -19,9 +21,12 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.simpleui.R.id;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 public class MainActivity extends Activity {
 
@@ -34,11 +39,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Parse.initialize(this, "3CNECEDI0tZiqskFsqFqLStJ5xEaTvZuYH2Ny6iX",
 				"w09lwMCZQOR79X1EIpdrR7ZxmbZj6EENnxuQMVyD");
-		
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
-		testObject.saveInBackground();
-		
+
 		super.onCreate(savedInstanceState);
 		// R-> Gen/R.java(product from resource)
 		// project clean 如果無法運作的話 (build automatically打開才會同步 )
@@ -117,6 +118,37 @@ public class MainActivity extends Activity {
 	private void sendMessage() {
 		String text = editText.getText().toString();
 		
+		//存到Parse上
+		ParseObject messageObject = new ParseObject("message");
+		messageObject.put("text", text);
+		messageObject.put("isEncrypt", isEncrypt.isChecked());
+		//inBackground()指在背景執行，所以method後續也會繼續執行。
+//		messageObject.saveInBackground();
+		
+		//savecallback當什麼事情發生後，才執行。
+		messageObject.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				if(e == null){
+					Log.e("debug", "done");
+				}else{
+					Log.e("debug","error");
+				}
+			}
+		});
+		
+		
+		Log.d("debug", "after saveInbackground");
+		//避免這個問題的話，方法一(速度會變慢，0.x秒會讓使用者有感覺。)。
+		//多數都用saveInBackground();
+//		try {
+//			messageObject.save();
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+		
+		
+		
 		if (isEncrypt.isChecked()) {
 			text = "*****";
 		}
@@ -138,7 +170,5 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	
 
 }
