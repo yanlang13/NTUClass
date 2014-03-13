@@ -19,6 +19,10 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
+
 public class MainActivity extends Activity {
 
 	private EditText editText;
@@ -28,6 +32,13 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Parse.initialize(this, "3CNECEDI0tZiqskFsqFqLStJ5xEaTvZuYH2Ny6iX",
+				"w09lwMCZQOR79X1EIpdrR7ZxmbZj6EENnxuQMVyD");
+		
+		ParseObject testObject = new ParseObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
+		
 		super.onCreate(savedInstanceState);
 		// R-> Gen/R.java(product from resource)
 		// project clean 如果無法運作的話 (build automatically打開才會同步 )
@@ -127,5 +138,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	
 
 }

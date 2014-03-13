@@ -61,7 +61,13 @@ public class MainActivity extends ActionBarActivity {
 			}
 		}
 	}
-
+	@Override
+	protected void onStart(){
+		super.onStart();
+		Toast.makeText(this, "onStarted", Toast.LENGTH_LONG).show();
+	}
+	
+	
 	// ¤º«Ø
 	// /**
 	// * A placeholder fragment containing a simple view.

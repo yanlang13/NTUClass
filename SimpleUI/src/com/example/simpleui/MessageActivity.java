@@ -10,11 +10,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
+
+
 public class MessageActivity extends Activity {
 	private TextView textView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_message);
 
@@ -31,11 +34,11 @@ public class MessageActivity extends Activity {
 	private void writeFile(String text) {
 		// 隔開資料，方便確認。
 		text += "\n";
-		
+
 		try {
 			// mode是指寫檔方式。。。存檔位置 手機沒root就看不到。 package-data-data-files
 			FileOutputStream fos = openFileOutput("history.txt",
-					Context. MODE_APPEND);
+					Context.MODE_APPEND);
 			// write有三種，這邊使用一個byte array (string to byte array)
 			fos.write(text.getBytes());
 		} catch (FileNotFoundException e) {
