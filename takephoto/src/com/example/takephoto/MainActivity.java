@@ -10,6 +10,7 @@ import java.io.IOException;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
 import android.support.v7.app.ActionBarActivity;
@@ -96,6 +97,10 @@ public class MainActivity extends ActionBarActivity {
 			baos.flush();
 			baos.close();
 			
+			//要實作一個parseObject，image才不會存上去後找不到。
+			ParseObject object = new ParseObject("photo");
+			
+			
 			final ParseFile pfile = new ParseFile("photo.png", baos.toByteArray());
 				pfile.saveInBackground(new SaveCallback() {
 					@Override
@@ -103,7 +108,11 @@ public class MainActivity extends ActionBarActivity {
 						Log.e("debug", pfile.getUrl());
 					}
 				});
-			
+				
+			object.put("photo", pfile);
+			object.saveInBackground();
+				
+				
 			// compress轉換，format 格式，quality 0-100,??)
 			bitmap.compress(Bitmap.CompressFormat.PNG, 90, bos);
 			Log.e("debug", "stroagepath= " + imageFile.getAbsolutePath());
