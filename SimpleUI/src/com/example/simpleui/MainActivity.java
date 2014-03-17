@@ -4,6 +4,7 @@ import javax.security.auth.callback.Callback;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
 	private Button button1;
 	private CheckBox isEncrypt;
 	private SharedPreferences sp;
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		isEncrypt.setChecked(sp.getBoolean("isEncrypt", false));
+		progressDialog = new ProgressDialog(this);
 	}
 
 	// method 必須是public 然後丟入View
@@ -116,52 +119,65 @@ public class MainActivity extends Activity {
 	}
 
 	private void sendMessage() {
-		String text = editText.getText().toString();
-		
-		//存到Parse上
+		// final text讓saveInvackgroud可以接
+		final String text = editText.getText().toString();
+
+		// progress
+		progressDialog.setTitle("loading");
+		progressDialog.show();
+
+		// 存到Parse上
 		ParseObject messageObject = new ParseObject("message");
 		messageObject.put("text", text);
 		messageObject.put("isEncrypt", isEncrypt.isChecked());
-		//inBackground()指在背景執行，所以method後續也會繼續執行。
-//		messageObject.saveInBackground();
-		
-		//savecallback當什麼事情發生後，才執行。
+		// saveInBackground()指在背景執行，所以method後續也會繼續執行。
+		// messageObject.saveInBackground();
+
+		// savecallback當什麼事情發生後，才執行。
 		messageObject.saveInBackground(new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
-				if(e == null){
+				if (e == null) {
 					Log.e("debug", "done");
-				}else{
-					Log.e("debug","error");
+
+					// intnet放這邊，才能確保檔案是被存完後才開啟intents的
+					// intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。
+					progressDialog.dismiss();
+					Intent intent = new Intent();
+					// 這邊錯誤是this的指向
+					intent.setClass(MainActivity.this, MessageActivity.class);
+					// putExtra Key, Value的概念，extra的意思就是指不影響intent的call
+					// inner class使用到外部變數，只能接到final
+
+					// 或者是創一個class來做存取
+					intent.putExtra("text", text);
+					startActivity(intent);
+				} else {
+					e.printStackTrace();
+					Log.e("debug", "error");
 				}
 			}
 		});
-		
-		
+
 		Log.d("debug", "after saveInbackground");
-		//避免這個問題的話，方法一(速度會變慢，0.x秒會讓使用者有感覺。)。
-		//多數都用saveInBackground();
-//		try {
-//			messageObject.save();
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-		
-		
-		
+		// 避免這個問題的話，方法一(速度會變慢，0.x秒會讓使用者有感覺。)。
+		// 多數都用saveInBackground();
+		// try {
+		// messageObject.save();
+		// } catch (ParseException e) {
+		// e.printStackTrace();
+		// }
+
+		String text2;
 		if (isEncrypt.isChecked()) {
-			text = "*****";
+			text2 = "*****";
+		} else {
+			text2 = text;
 		}
 
 		editText.getText().clear();
-		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		// Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 
-		// intent(意圖)是指程序去呼叫另外一個程序，眾多方法之一。
-		Intent intent = new Intent();
-		intent.setClass(this, MessageActivity.class);
-		// putExtra Key, Value的概念，extra的意思就是指不影響intent的call
-		intent.putExtra("text", text);
-		startActivity(intent);
 	}
 
 	@Override
