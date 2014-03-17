@@ -1,10 +1,16 @@
 package com.example.takephoto;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.SaveCallback;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
@@ -24,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Parse.initialize(this, "3CNECEDI0tZiqskFsqFqLStJ5xEaTvZuYH2Ny6iX",
+				"w09lwMCZQOR79X1EIpdrR7ZxmbZj6EENnxuQMVyD");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		imageView = (ImageView) findViewById(R.id.imageView1);
@@ -71,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
 				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
 		// 確認資料夾狀態
-		if (imageDir.exists()) {
+		if (!imageDir.exists()) {
 			imageDir.mkdir();
 		}
 
@@ -82,6 +90,20 @@ public class MainActivity extends ActionBarActivity {
 		try {
 			BufferedOutputStream bos = new BufferedOutputStream(
 					new FileOutputStream(imageFile));
+			//bytearray用以儲存到parse
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.PNG, 90, baos);
+			baos.flush();
+			baos.close();
+			
+			final ParseFile pfile = new ParseFile("photo.png", baos.toByteArray());
+				pfile.saveInBackground(new SaveCallback() {
+					@Override
+					public void done(ParseException e) {
+						Log.e("debug", pfile.getUrl());
+					}
+				});
+			
 			// compress轉換，format 格式，quality 0-100,??)
 			bitmap.compress(Bitmap.CompressFormat.PNG, 90, bos);
 			Log.e("debug", "stroagepath= " + imageFile.getAbsolutePath());
