@@ -24,7 +24,7 @@
         android:columnCount="1" >
 
         <Button
-            android:id="@+id/button_Travel"
+            android:id="@+id/button_List"
             android:text="@string/Main_TravelList" 
             android:onClick="MtTravelList"
         />
@@ -49,7 +49,7 @@
         />
 
         <Button
-            android:id="@+id/button_NewMap"
+            android:id="@+id/button_NewTravel"
             android:text="@string/Main_NewTravel" 
             android:layout_gravity="right|bottom"
             android:layout_column="0"

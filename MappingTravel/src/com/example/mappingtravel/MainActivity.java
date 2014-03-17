@@ -10,21 +10,26 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends ActivityWithMenu {
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setActionBarColor();
+		
 	}
 
 	// 選單開始=========================================================
+	
 	//intent讀this，所以要傳入view
 	public void MtTravelList(View view) {
 		Intent intent = new Intent(this, MainTravelList.class);
 		startActivity(intent);
 	}
-
+	
+	
+	
 	public void MtLocation(View view) {
 		// 顯示距離layout邊界的功能
 		PrButtonPosition();
