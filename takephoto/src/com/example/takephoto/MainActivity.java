@@ -16,9 +16,11 @@ import com.parse.SaveCallback;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Audio.Media;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +51,10 @@ public class MainActivity extends ActionBarActivity {
 			Intent intent = new Intent();
 			// setAction未必是開啟activity
 			intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+			// 新增欄位來放資料(取大圖)，value 是uri 一種資料識別的定義 (部分例子會支援rul)
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, getStoreFile());
 			startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
+
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -65,10 +70,12 @@ public class MainActivity extends ActionBarActivity {
 		if (requestcode == REQUEST_CODE_TAKE_PHOTO) {
 			// result_ok有東西回來
 			if (resultcode == RESULT_OK) {
+				Log.e("debug", "photo:" + getStoreFile());
+				// 如果要取得大圖的話，因為檔案放到extra中，所以bitmap會抓不到小圖。
 				// Bitmap (指的是圖)
-				Bitmap image = (Bitmap) data.getExtras().get("data");
-				save(image);
-				imageView.setImageBitmap(image);
+//				Bitmap image = (Bitmap) data.getExtras().get("data");
+//				save(image);
+//				imageView.setImageBitmap(image);
 			}
 		}
 	}
@@ -91,28 +98,27 @@ public class MainActivity extends ActionBarActivity {
 		try {
 			BufferedOutputStream bos = new BufferedOutputStream(
 					new FileOutputStream(imageFile));
-			//bytearray用以儲存到parse
+			// bytearray用以儲存到parse
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			bitmap.compress(Bitmap.CompressFormat.PNG, 90, baos);
 			baos.flush();
 			baos.close();
-			
-			//要實作一個parseObject，image才不會存上去後找不到。
+
+			// 要實作一個parseObject，image才不會存上去後找不到。
 			ParseObject object = new ParseObject("photo");
-			
-			
-			final ParseFile pfile = new ParseFile("photo.png", baos.toByteArray());
-				pfile.saveInBackground(new SaveCallback() {
-					@Override
-					public void done(ParseException e) {
-						Log.e("debug", pfile.getUrl());
-					}
-				});
-				
+
+			final ParseFile pfile = new ParseFile("photo.png",
+					baos.toByteArray());
+			pfile.saveInBackground(new SaveCallback() {
+				@Override
+				public void done(ParseException e) {
+					Log.e("debug", pfile.getUrl());
+				}
+			});
+
 			object.put("photo", pfile);
 			object.saveInBackground();
-				
-				
+
 			// compress轉換，format 格式，quality 0-100,??)
 			bitmap.compress(Bitmap.CompressFormat.PNG, 90, bos);
 			Log.e("debug", "stroagepath= " + imageFile.getAbsolutePath());
@@ -125,6 +131,17 @@ public class MainActivity extends ActionBarActivity {
 			e.printStackTrace();
 		}
 
+	}
+
+	private Uri getStoreFile() {
+		File imageDir = Environment
+				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		if (!imageDir.exists()) {
+			imageDir.mkdir();
+		}
+
+		File imageFile = new File(imageDir, "photo_extra.png");
+		return Uri.fromFile(imageFile);
 	}
 
 	@Override
