@@ -18,5 +18,11 @@
     <string name="Image_Sub_2nd">Score</string>
     <string name="TravelList_shareMapButton">Share!</string>
     <string name="TravelList_LinktoWebButton">Google!</string>
-
+    
+    <string-array name="List_DropDown"> 
+        <item >list1</item>
+        <item >list2</item>
+        <item >list3</item>
+        
+        </string-array>
 </resources>

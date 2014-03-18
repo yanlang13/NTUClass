@@ -8,6 +8,9 @@
 package com.example.mappingtravel;
 
 public final class R {
+    public static final class array {
+        public static final int List_DropDown=0x7f070000;
+    }
     public static final class attr {
     }
     public static final class color {
@@ -36,32 +39,34 @@ public final class R {
         public static final int ic_red_number_5=0x7f020008;
     }
     public static final class id {
-        public static final int GridLayout1=0x7f090000;
-        public static final int TravelList_shareMapButton=0x7f090007;
-        public static final int TravelLit_LinktoWebsite=0x7f090008;
-        public static final int action_search=0x7f09000d;
-        public static final int action_settings=0x7f09000c;
-        public static final int action_share=0x7f09000e;
-        public static final int button_List=0x7f090001;
-        public static final int button_Location=0x7f090002;
-        public static final int button_NewTravel=0x7f090004;
-        public static final int button_Photo=0x7f090003;
-        public static final int imageView1=0x7f090009;
-        public static final int listView1=0x7f090006;
-        public static final int textView1=0x7f090005;
-        public static final int textView2=0x7f09000a;
-        public static final int textView3=0x7f09000b;
+        public static final int GridLayout1=0x7f0a0000;
+        public static final int TravelList_shareMapButton=0x7f0a0007;
+        public static final int TravelLit_LinktoWebsite=0x7f0a0008;
+        public static final int action_search=0x7f0a000e;
+        public static final int action_settings=0x7f0a000d;
+        public static final int action_share=0x7f0a000f;
+        public static final int button_List=0x7f0a0001;
+        public static final int button_Location=0x7f0a0002;
+        public static final int button_NewTravel=0x7f0a0004;
+        public static final int button_Photo=0x7f0a0003;
+        public static final int fragment_container=0x7f0a0009;
+        public static final int imageView1=0x7f0a000a;
+        public static final int listView1=0x7f0a0006;
+        public static final int textView1=0x7f0a0005;
+        public static final int textView2=0x7f0a000b;
+        public static final int textView3=0x7f0a000c;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_main_newtravel=0x7f030001;
         public static final int activity_main_photo=0x7f030002;
         public static final int activity_main_travelmap=0x7f030003;
-        public static final int photo_format=0x7f030004;
+        public static final int fragment_container=0x7f030004;
+        public static final int photo_format=0x7f030005;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
-        public static final int main_activity_actions=0x7f080001;
+        public static final int main=0x7f090000;
+        public static final int main_activity_actions=0x7f090001;
     }
     public static final class string {
         public static final int Image_Main_Name=0x7f06000c;
@@ -104,10 +109,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
 }
