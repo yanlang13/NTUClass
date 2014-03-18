@@ -24,11 +24,10 @@ public abstract class ActivityWithMenu extends Activity {
 	private ShareActionProvider shareActionProvider;
 	private OnNavigationListener mOnNavigationListener;
 
+	//為了drop down 所建===============
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		//===============
 		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
 				R.array.List_DropDown,
 				android.R.layout.simple_dropdown_item_1line);
@@ -53,9 +52,9 @@ public abstract class ActivityWithMenu extends Activity {
 				return true;
 			}
 		};
-		//===============
+		
 	}
-
+	//===============
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
