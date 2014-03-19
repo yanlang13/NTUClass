@@ -61,15 +61,14 @@ public abstract class ActivityWithMenu extends Activity {
 	 * is. actionBar上面的功能
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_search:
+		int itemId = item.getItemId();
+		if (itemId == R.id.action_search) {
 			doSearch();
 			return true;
-		case R.id.action_settings:
+		} else if (itemId == R.id.action_settings) {
 			doSettings();
 			return true;
-		default:
+		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}
