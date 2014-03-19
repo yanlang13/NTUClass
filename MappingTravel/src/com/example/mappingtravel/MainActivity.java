@@ -3,21 +3,32 @@ package com.example.mappingtravel;
 import android.os.Bundle;
 import android.R.anim;
 import android.R.array;
+import android.app.ActionBar.OnNavigationListener;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActivityWithMenu {
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setActionBarColor();
+
 	}
+
 	// 選單開始=========================================================
 	// intent讀this，所以要傳入view
 	public void MtTravelList(View view) {

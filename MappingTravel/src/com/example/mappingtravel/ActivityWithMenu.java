@@ -1,60 +1,21 @@
 package com.example.mappingtravel;
 
-import java.util.Arrays;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ActionBar.OnNavigationListener;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ShareActionProvider;
-import android.widget.SpinnerAdapter;
-import android.app.FragmentTransaction; 
 
 public abstract class ActivityWithMenu extends Activity {
 
 	private ShareActionProvider shareActionProvider;
-	private OnNavigationListener mOnNavigationListener;
 
-	//為了drop down 所建===============
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
-				R.array.List_DropDown,
-				android.R.layout.simple_dropdown_item_1line);
-		mOnNavigationListener = new OnNavigationListener() {
-			// Get the same strings provided for the drop-down's ArrayAdapter
-			String[] strings = getResources().getStringArray(
-					R.array.List_DropDown);
-
-			@Override
-			public boolean onNavigationItemSelected(int position, long itemId) {
-				// Create new fragment from our own Fragment class
-				ListContentFragment newFragment = new ListContentFragment();
-				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				// Replace whatever is in the fragment container with this
-				// fragment
-				// and give the fragment a tag name equal to the string at the
-				// position selected
-				ft.replace(R.id.fragment_container, newFragment,
-						strings[position]);
-				// Apply changes
-				ft.commit();
-				return true;
-			}
-		};
-		
-	}
-	//===============
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
