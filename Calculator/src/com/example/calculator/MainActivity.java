@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		editText_Display = (EditText) findViewById(R.id.displaytext);
+		editText_Display = (EditText) findViewById(R.id.EDT_Display);
 
 	}
 
@@ -79,11 +79,11 @@ public class MainActivity extends Activity {
 		str = "";
 		numtemp = num;
 	}
-	
-    public void Answer(View v){
-        calculate();
-       }
-	
+
+	public void Euqal(View v) {
+		calculate();
+	}
+
 	private void calculate() {
 		// TODO Auto-generated method stub
 		if (op == '+')

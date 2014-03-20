@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/displaytext"
+        android:id="@+id/EDT_Display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -243,11 +243,11 @@
                 android:orientation="vertical" >
 
                 <Button
-                    android:id="@+id/buttonAns"
+                    android:id="@+id/buttonEqual"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="Answer"
+                    android:onClick="Euqal"
                     android:text="=" />
             </LinearLayout>
 

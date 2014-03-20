@@ -25,15 +25,16 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int EDT_Display=0x7f080000;
         public static final int action_settings=0x7f080018;
         public static final int button1=0x7f080002;
         public static final int button2=0x7f080001;
         public static final int button3=0x7f080003;
         public static final int button4=0x7f080004;
         public static final int button6=0x7f080006;
-        public static final int buttonAns=0x7f080016;
         public static final int buttonClear=0x7f080005;
         public static final int buttonDivide=0x7f080007;
+        public static final int buttonEqual=0x7f080016;
         public static final int buttonMinus=0x7f08000c;
         public static final int buttonN0=0x7f080013;
         public static final int buttonN1=0x7f080011;
@@ -48,7 +49,6 @@ public final class R {
         public static final int buttonPlus=0x7f080010;
         public static final int buttonPoint=0x7f080015;
         public static final int buttonTimes=0x7f080008;
-        public static final int displaytext=0x7f080000;
         public static final int textView1=0x7f080017;
     }
     public static final class layout {
