@@ -1,23 +1,133 @@
 package com.example.calculator;
 
+import android.R.integer;
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
+
+	private EditText editText_Display;
+	public String str = "";
+	Character op = 'q';
+	int i, num, numtemp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		editText_Display = (EditText) findViewById(R.id.displaytext);
+
+	}
+
+	private void insert(int j) {
+		// TODO Auto-generated method stub
+		str = str + Integer.toString(j);
+		num = Integer.valueOf(str).intValue();
+		editText_Display.setText(str);
+	}
+
+	public void N0(View v) {
+		insert(0);
+	}
+
+	public void N1(View v) {
+		insert(1);
+	}
+
+	public void N2(View v) {
+		insert(2);
+	}
+
+	public void N3(View v) {
+		insert(3);
+	}
+
+	public void N4(View v) {
+		insert(4);
+	}
+
+	public void N5(View v) {
+		insert(5);
+	}
+
+	public void N6(View v) {
+		insert(6);
+	}
+
+	public void N7(View v) {
+		insert(7);
+	}
+
+	public void N8(View v) {
+		insert(8);
+	}
+
+	public void N9(View v) {
+		insert(9);
+	}
+
+	private void perform() {
+		// TODO Auto-generated method stub
+		str = "";
+		numtemp = num;
+	}
+	
+    public void Answer(View v){
+        calculate();
+       }
+	
+	private void calculate() {
+		// TODO Auto-generated method stub
+		if (op == '+')
+			num = numtemp + num;
+		else if (op == '-')
+			num = numtemp - num;
+		else if (op == '/')
+			num = numtemp / num;
+		else if (op == '*')
+			num = numtemp * num;
+		editText_Display.setText("" + num);
+	}
+
+	public void Plus(View v) {
+		perform();
+		op = '+';
+	}
+
+	public void Minus(View v) {
+		perform();
+		op = '-';
+	}
+
+	public void Times(View v) {
+		perform();
+		op = '*';
+	}
+
+	public void Divide(View v) {
+		perform();
+		op = '/';
+	}
+
+	public void Clear(View v) {
+		reset();
+	}
+
+	private void reset() {
+		// TODO Auto-generated method stub
+		str = "";
+		op = 'q';
+		num = 0;
+		numtemp = 0;
+		editText_Display.setText("");
 	}
 
 	@Override
@@ -39,8 +149,4 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
 }
