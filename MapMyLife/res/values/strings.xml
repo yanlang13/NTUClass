@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MapMyTravel</string>
+    <string name="app_name">MapMyLife</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">search</string>
     <string name="action_share">share</string>

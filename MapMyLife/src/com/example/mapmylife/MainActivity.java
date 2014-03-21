@@ -1,4 +1,4 @@
-package com.example.mapmytravel;
+package com.example.mapmylife;
 
 import android.content.Intent;
 import android.os.Bundle;
