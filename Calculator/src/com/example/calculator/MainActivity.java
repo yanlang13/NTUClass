@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
 	private EditText editText_Display;
 	public String str = "";
 	Character op = 'q';
-	int i, num, numtemp;
+	float i, num, numtemp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,53 +27,56 @@ public class MainActivity extends Activity {
 
 	}
 
-	private void insert(int j) {
+	private void insert(String j) {
 		// TODO Auto-generated method stub
-		str = str + Integer.toString(j);
-		num = Integer.valueOf(str).intValue();
+		str = str + j;
+		num = Float.valueOf(str).floatValue();
 		editText_Display.setText(str);
 	}
 
 	public void N0(View v) {
-		insert(0);
+		insert("0");
 	}
 
 	public void N1(View v) {
-		insert(1);
+		insert("1");
 	}
 
 	public void N2(View v) {
-		insert(2);
+		insert("2");
 	}
 
 	public void N3(View v) {
-		insert(3);
+		insert("3");
 	}
 
 	public void N4(View v) {
-		insert(4);
+		insert("4");
 	}
 
 	public void N5(View v) {
-		insert(5);
+		insert("5");
 	}
 
 	public void N6(View v) {
-		insert(6);
+		insert("6");
 	}
 
 	public void N7(View v) {
-		insert(7);
+		insert("7");
 	}
 
 	public void N8(View v) {
-		insert(8);
+		insert("8");
 	}
 
 	public void N9(View v) {
-		insert(9);
+		insert("9");
 	}
-
+	
+	public void point(View v) {
+		insert(".");
+	}
 	private void perform() {
 		// TODO Auto-generated method stub
 		str = "";

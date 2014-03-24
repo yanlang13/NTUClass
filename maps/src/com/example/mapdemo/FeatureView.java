@@ -30,7 +30,7 @@ public final class FeatureView extends FrameLayout {
      * Constructs a feature view by inflating layout/feature.xml.
      */
     public FeatureView(Context context) {
-        super(context);
+    	super(context);
 
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

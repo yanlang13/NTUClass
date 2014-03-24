@@ -233,6 +233,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:onClick="point"
                     android:text="." />
             </LinearLayout>
 
@@ -263,9 +264,9 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="right"
             android:text="And23610"
-            android:textSize="50dp" />
+            android:textSize="30dp" />
     </LinearLayout>
 
 </LinearLayout>

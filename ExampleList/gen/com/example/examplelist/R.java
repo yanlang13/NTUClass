@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.layoutsimple;
+package com.example.examplelist;
 
 public final class R {
     public static final class attr {
@@ -13,8 +13,9 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
         public static final int activity_horizontal_margin=0x7f040000;
@@ -24,41 +25,26 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int Button01=0x7f080003;
-        public static final int Button02=0x7f080004;
-        public static final int Button03=0x7f080005;
-        public static final int Button04=0x7f080006;
-        public static final int Button05=0x7f080008;
-        public static final int Button06=0x7f080009;
-        public static final int Button07=0x7f08000a;
-        public static final int Button08=0x7f08000b;
-        public static final int Button09=0x7f080014;
-        public static final int Button10=0x7f080011;
-        public static final int LinearLayout01=0x7f080002;
-        public static final int LinearLayout02=0x7f080007;
-        public static final int LinearLayout03=0x7f08000c;
-        public static final int LinearLayout1=0x7f080000;
-        public static final int action_settings=0x7f080017;
-        public static final int button1=0x7f08000d;
-        public static final int button10=0x7f080013;
-        public static final int button11=0x7f080016;
-        public static final int button2=0x7f08000e;
-        public static final int button3=0x7f08000f;
-        public static final int button4=0x7f080010;
-        public static final int button7=0x7f080015;
-        public static final int button8=0x7f080012;
-        public static final int editText1=0x7f080001;
+        public static final int action_settings=0x7f080003;
+        public static final int description=0x7f080001;
+        public static final int list=0x7f080002;
+        public static final int title=0x7f080000;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
+        public static final int example1=0x7f030000;
+        public static final int feature=0x7f030001;
+        public static final int main=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f070000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
+        public static final int action_settings=0x7f050002;
         public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050002;
+        public static final int example1_description=0x7f050005;
+        public static final int example1_label=0x7f050004;
+        public static final int hello_world=0x7f050001;
+        public static final int no_demos=0x7f050003;
     }
     public static final class style {
         /** 

@@ -2,28 +2,19 @@ package com.example.push;
 
 import java.util.List;
 
-import android.R.integer;
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.os.Build;
 import android.provider.Settings.Secure;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
@@ -58,6 +49,7 @@ public class MainActivity extends Activity {
 
 		// spinner¨Ï¥Î
 		loadDeviceIds();
+
 	}
 
 	@Override
