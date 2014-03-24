@@ -3,8 +3,9 @@
 
     <string name="app_name">ExampleList</string>
     <string name="action_settings">Settings</string>
-    <string name="example1_label">basic map</string>
-    <string name="example1_description">基本的地圖</string>
+    <string name="example1_label">Change Map Type</string>
+    <string name="example1_description">底圖選擇</string>
+    <string name="example1_change_map_type">Types</string>
     <string name="hello_world">Hello world!</string>
     <string name="no_demos">no demos</string>
 </resources>

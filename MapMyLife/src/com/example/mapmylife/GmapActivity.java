@@ -23,7 +23,7 @@ public class GmapActivity extends ActivityWithMenu {
 		if (mMap == null) {
 			// 使用activity時，supportMapFragment，和getSupportFragmentManager都要將support拿掉(appv4)
 			mMap = ((MapFragment) getFragmentManager().findFragmentById(
-					R.id.mmap)).getMap();
+					R.id.mMap)).getMap();
 			// Check if we were successful in obtaining the map.
 			if (mMap != null) {
 				setUpMap();

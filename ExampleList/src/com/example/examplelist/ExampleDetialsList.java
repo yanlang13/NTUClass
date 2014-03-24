@@ -9,7 +9,8 @@ public final class ExampleDetialsList {
 	private ExampleDetialsList() {
 	}
 
-	public static final ExampleDetails[] EXAMPLES = { new ExampleDetails(
+	public static final ExampleDetails[] EXAMPLES = { 
+		new ExampleDetails(
 			R.string.example1_label, R.string.example1_description,
 			Example1Activity.class), };
 } // end of ExampleDetialsList{}
