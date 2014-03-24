@@ -1,5 +1,6 @@
 package com.example.examplelist;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
@@ -21,7 +22,7 @@ public final class FeatureView extends FrameLayout {
 	}// end of setTitleId();
 
 	public synchronized void setDescriptionId(int descriptionId) {
-		((TextView) findViewById(R.id.title)).setText(descriptionId);
+		((TextView) findViewById(R.id.description)).setText(descriptionId);
 	} // end of setDescriptionId();
 
 }// end of FeatureVire{};
