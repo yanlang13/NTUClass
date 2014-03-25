@@ -5,14 +5,15 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.animation.AnimatorSet.Builder;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
-import android.sax.EndElementListener;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 
 public class Example1Activity extends Activity {
 	private GoogleMap mMap; 
@@ -26,14 +27,28 @@ public class Example1Activity extends Activity {
 	}// end of onCcreate{}
 	
 	//change map type
-	public void ClickMapType(View view){
+	public void ClickMapType(View view){ // call from XML:onClick
 		Log.d("debuf", "click map type");
-		showAlertDialog();
+		showAlertDialog("Dialog，button位置");
 	}//End of ClickMapType()
 	
-	//select map type
-	public void showAlertDialog(){
-		
+	//select map type 
+	public void showAlertDialog(String message){ //call from ClickMapType
+		Builder alertDialog = new AlertDialog.Builder(this);
+		alertDialog.setTitle("Map Type:");
+		alertDialog.setMessage(message);
+		DialogInterface.OnClickListener okClick = new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				//如果不做任何事情就會直接關閉對話方塊
+			}
+		};
+		//the position they take within the dialog
+		//4.x 按鈕位置：positive(正) neutral(中性) negative(反)
+		alertDialog.setPositiveButton("setPositiveButton", okClick);
+		alertDialog.setNeutralButton("setNeutralButton", okClick);
+		alertDialog.setNegativeButton("setNegativeButton", okClick);
+		alertDialog.show();
 	}//End of showAlertDialog()
 	
 	@Override
