@@ -21,8 +21,8 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    
-    <application >
+    <application>
+
         <!--
          ** You need to replace the key below with your own key. **
          See: https://developers.google.com/maps/documentation/android/start
@@ -51,6 +51,10 @@
         <activity
             android:name="com.example.examplelist.Example1Activity"
             android:label="@string/example1_label" >
+        </activity>
+        <activity
+            android:name="com.example.examplelist.CameraActivity"
+            android:label="@string/camera_label" >
         </activity>
     </application>
 

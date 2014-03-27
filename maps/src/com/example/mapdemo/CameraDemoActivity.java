@@ -198,6 +198,8 @@ public class CameraDemoActivity extends FragmentActivity {
                 .tilt(newTilt).build();
 
         changeCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        
+        
     }
 
     /**
