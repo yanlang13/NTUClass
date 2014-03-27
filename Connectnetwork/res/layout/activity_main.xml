@@ -17,12 +17,34 @@
         android:text="TextView" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/fetch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_centerVertical="true"
         android:onClick="fetch"
-        android:text="fetch" />
+        android:text="fetch1" />
+
+    <Button
+        android:id="@+id/fetch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/fetch1"
+        android:onClick="fetch2"
+        android:text="fetch2" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fetch1"
+        android:layout_below="@+id/fetch1"
+        android:layout_marginTop="14dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>
