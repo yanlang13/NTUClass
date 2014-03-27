@@ -3,9 +3,11 @@ package com.example.connectnetwork;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
@@ -16,6 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +28,7 @@ public class MainActivity extends Activity {
 
 	private TextView textView;
 	private EditText editText;
+	private ProgressDialog progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +37,33 @@ public class MainActivity extends Activity {
 
 		textView = (TextView) findViewById(R.id.textView1);
 		editText = (EditText) findViewById(R.id.editText1);
+		progress = new ProgressDialog(this);
 	}
 
 	// 連接網路後，fetch必須放到另外一個thread，這樣才不會crash (android 3.0以後的限制)
 	public void fetch(View view) {
+		String address = "";
+		// 中文字串需要encoder，例外可能是encoding無法支援
+		try {
+			address = URLEncoder.encode(editText.getText().toString(), "utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		// 丟到google API處理
+		final String urlStr = String
+				.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false",
+						address);
 
 		// android 獨特的方式:把thread分解成三個部分(在task執行前、中、後)
 		// 第一個啟動時輸入的參數，第二個可用來監控進度，第三個Type是指回傳的值
 		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-			String address = editText.getText().toString();
-			final String urlStr = String
-					.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false",
-							address);
+			// 丟到google API取得經緯度座標
 
 			@Override
 			protected void onPreExecute() {
+				// 建立進度圈圈
+				progress.setTitle("loading");
+				progress.show();
 			}
 
 			@Override
@@ -83,6 +99,8 @@ public class MainActivity extends Activity {
 			@Override
 			protected void onPostExecute(String result) {
 				textView.setText(result);
+				// 結束進度圈圈
+				progress.dismiss();
 			}
 		};
 		task.execute();
@@ -125,11 +143,6 @@ public class MainActivity extends Activity {
 
 		task.execute();
 	}
-
-
-
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
