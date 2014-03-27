@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 	public void fetch(View view) {
 
 		// android 獨特的方式:把thread分解成三個部分(在task執行前、中、後)
-		//第二個可用來監控進度，第三個Type是指回傳的值
+		//第一個啟動時輸入的參數，第二個可用來監控進度，第三個Type是指回傳的值
 		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
 			String urlStr = "http://yahoo.com";
 			@Override
