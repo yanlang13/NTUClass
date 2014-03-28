@@ -14,6 +14,8 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	private TextView textView;
+	private TextView latTextView;
+	private TextView lngTextView;
 	private EditText editText;
 	private ProgressDialog progress;
 
@@ -38,6 +42,9 @@ public class MainActivity extends Activity {
 		textView = (TextView) findViewById(R.id.textView1);
 		editText = (EditText) findViewById(R.id.editText1);
 		progress = new ProgressDialog(this);
+
+		latTextView = (TextView) findViewById(R.id.textView2);
+		latTextView = (TextView) findViewById(R.id.textView3);
 	}
 
 	// 連接網路後，fetch必須放到另外一個thread，這樣才不會crash (android 3.0以後的限制)
@@ -98,6 +105,24 @@ public class MainActivity extends Activity {
 
 			@Override
 			protected void onPostExecute(String result) {
+				// 解析google mpa api json的結果
+				// {}是object, key-value的概念
+				try {
+					//取得項目
+					JSONObject data = new JSONObject(result);
+					JSONObject location = data.getJSONArray("results")
+					.getJSONObject(0).getJSONObject("geometry")
+					.getJSONObject("location");
+					double lat = location.getDouble("lat");
+					double lng = location.getDouble("lng");
+
+					latTextView.setText("lat:" + lat);
+					lngTextView.setText("lng:" + lng);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				textView.setText(result);
 				// 結束進度圈圈
 				progress.dismiss();
