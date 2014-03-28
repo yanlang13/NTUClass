@@ -7,6 +7,12 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
+
+    <!-- Parse Setting -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- End of Parse Setting -->
+
+
     <!-- Copied from Google Maps Library/AndroidManifest.xml. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />

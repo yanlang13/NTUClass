@@ -1,6 +1,5 @@
 package com.example.examplelist;
 
-
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,18 +15,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
+
 public class CameraActivity extends Activity {
+
 	private GoogleMap gMap;
-	private TextView pressTextView, cameraTextView;  
-	
+
+	private TextView pressTextView, cameraTextView;
+
 	public void onCreate(Bundle saveInstanceState) {
+		Parse.initialize(this, "BML8dGuDZm1bAlrZTAvrziF0VzRD7zHC1snaE6F6",
+				"sOoI88XtmkZANeXeTry3T4XFS4E6xM3yH9CnFLZ1");
 		super.onCreate(saveInstanceState);
 		setContentView(R.layout.camera);
 		setUpMapIfNeeded();
-		
+
 		pressTextView = (TextView) findViewById(R.id.press_position);
 		cameraTextView = (TextView) findViewById(R.id.camera_position);
-		
+
+		ParseObject testObject = new ParseObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
+
 	}// end of onCreate
 
 	@Override
@@ -43,14 +54,14 @@ public class CameraActivity extends Activity {
 			if (gMap != null) {
 				// 關閉ZoomControls(會被button擋到)
 				gMap.getUiSettings().setZoomControlsEnabled(false);
-				
-				//處理各式listener
+
+				// 處理各式listener
 				setUpMapListener();
 			}
 		}
 	}// end of setUpMapIfNeeded()
-	
-	public void onSaveCamera(){ // call from XML
+
+	public void onSaveCamera() { // call from XML
 		gMap.setOnCameraChangeListener(new OnCameraChangeListener() {
 			@Override
 			public void onCameraChange(CameraPosition cp) {
@@ -58,36 +69,35 @@ public class CameraActivity extends Activity {
 			}
 		});
 	}// end of onSaveCamera
-	
-	
-	private void setUpMapListener(){ //call from setUpMapIfNeeded
-		//一種是implement listener，就可以直接呼叫method。
-		//一種就是使用匿名類別
+
+	private void setUpMapListener() { // call from setUpMapIfNeeded
+		// 一種是implement listener，就可以直接呼叫method。
+		// 一種就是使用匿名類別
 		gMap.setOnCameraChangeListener(new OnCameraChangeListener() {
 			@Override
 			public void onCameraChange(CameraPosition cp) {
-				cameraTextView.setText("Camera Centre: "+cp.target.toString());
+				cameraTextView.setText("Camera Centre: " + cp.target.toString());
 			}
-		});//end of gMap.setOnCameraChangeListener
-		
+		});// end of gMap.setOnCameraChangeListener
+
 		gMap.setOnMapClickListener(new OnMapClickListener() {
 			@Override
 			public void onMapClick(LatLng point) {
-				pressTextView.setText("tap position: "+ point.toString());
+				pressTextView.setText("tap position: " + point.toString());
 			}
-		});//end of gMap.setOnMapClickListener
-		
+		});// end of gMap.setOnMapClickListener
+
 		gMap.setOnMapLongClickListener(new OnMapLongClickListener() {
 			@Override
 			public void onMapLongClick(LatLng point) {
-				pressTextView.setText("long pressed position: "+point.toString());
-				
+				pressTextView.setText("long pressed position: "
+						+ point.toString());
+
 			}
-		});//end of gMap.setOnMapLongClickListener
-		
-		
+		});// end of gMap.setOnMapLongClickListener
+
 	} // end of setUpMapListener
-	
+
 	// 地圖傾斜角度功能==============================================
 	public void onTiltMore(View v) { // call from XML
 		// getCameraPosition()取得camera的位置(是CameraPostion Class)
