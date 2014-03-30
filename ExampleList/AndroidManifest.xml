@@ -27,7 +27,7 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <application>
+    <application android:name=".CameraApp" >
 
         <!--
          ** You need to replace the key below with your own key. **
