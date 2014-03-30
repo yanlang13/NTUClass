@@ -11,17 +11,20 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 public class CameraActivity extends Activity {
 
 	private GoogleMap gMap;
+	private ProgressDialog progressDialog;
 
 	private TextView pressTextView, cameraTextView;
 
@@ -34,10 +37,7 @@ public class CameraActivity extends Activity {
 
 		pressTextView = (TextView) findViewById(R.id.press_position);
 		cameraTextView = (TextView) findViewById(R.id.camera_position);
-
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
-		testObject.saveInBackground();
+		progressDialog = new ProgressDialog(this);
 
 	}// end of onCreate
 
@@ -61,14 +61,35 @@ public class CameraActivity extends Activity {
 		}
 	}// end of setUpMapIfNeeded()
 
-	public void onSaveCamera() { // call from XML
-		gMap.setOnCameraChangeListener(new OnCameraChangeListener() {
+	public void onSaveCamera(View view) { // call from XML
+		CameraPosition cp = gMap.getCameraPosition();
+		// 存檔等待
+		progressDialog.setTitle("Saving");
+		progressDialog.setMessage("Please Wait.");
+		progressDialog.show();
+
+		// 將CameraPosition的 lat lng分開，用LatLng class接
+		LatLng save = cp.target;
+		Double lat = save.latitude;
+		Double lng = save.longitude;
+
+		// 最簡單的ParseObject，官方建議使用subclass可加快速度
+		ParseObject cameraLocation = new ParseObject("cameraLocation");
+		cameraLocation.put("latitude", lat);
+		cameraLocation.put("longitude", lng);
+
+		// 存檔有四種，記得使用saveCallBack，不然就是不要main thread
+		// 1.saveInBackground，背景存檔
+		// 2.saveEventually，無網路時會暫存，等下次連線再存檔
+		// 3.saveAll(object)將list object都存檔
+		cameraLocation.saveInBackground(new SaveCallback() {
 			@Override
-			public void onCameraChange(CameraPosition cp) {
-				cp.target.toString();
+			public void done(ParseException e) {
+				// TODO Auto-generated method stub
+				progressDialog.dismiss();
 			}
 		});
-	}// end of onSaveCamera
+	} // end of onSaveCamera
 
 	private void setUpMapListener() { // call from setUpMapIfNeeded
 		// 一種是implement listener，就可以直接呼叫method。
