@@ -1,5 +1,7 @@
 package com.example.examplelist;
 
+import javax.security.auth.PrivateCredentialPermission;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,18 +12,16 @@ import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.sax.EndElementListener;
-import android.text.AlteredCharSequence;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +29,6 @@ import android.widget.Toast;
 public class CameraActivity extends Activity {
 
 	private GoogleMap gMap;
-	private ProgressDialog progressDialog;
-	private CameraPositionParse cpp;
-
 	private TextView pressTextView, cameraTextView;
 
 	public void onCreate(Bundle saveInstanceState) {
@@ -42,7 +39,6 @@ public class CameraActivity extends Activity {
 
 		pressTextView = (TextView) findViewById(R.id.press_position);
 		cameraTextView = (TextView) findViewById(R.id.camera_position);
-		progressDialog = new ProgressDialog(this);
 		callTheLastCameraPostion();
 	}// end of onCreate
 
@@ -55,15 +51,17 @@ public class CameraActivity extends Activity {
 		float bearing = sp.getFloat("bearing", 0);
 		float tilt = sp.getFloat("tilt", 0);
 		float zoom = sp.getFloat("zoom", 0);
-		//將string 轉為latlng
-		LatLng lastPosition = new LatLng(Double.valueOf(latString), Double.valueOf(lngString));
-		
-		CameraPosition cp = new CameraPosition(lastPosition, zoom, tilt, bearing);
-		
-		//moreCamera設定camera
-		//CameraUpdateFactory是return CameraUpdate class
+		// 將string 轉為latlng
+		LatLng lastPosition = new LatLng(Double.valueOf(latString),
+				Double.valueOf(lngString));
+
+		CameraPosition cp = new CameraPosition(lastPosition, zoom, tilt,
+				bearing);
+
+		// moreCamera設定camera
+		// CameraUpdateFactory是return CameraUpdate class
 		gMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
-		
+
 	} // end of callTheLastCameraPostion
 
 	@Override
@@ -114,7 +112,7 @@ public class CameraActivity extends Activity {
 
 	protected void onPause() {
 		super.onPause();
-		//確認有進入onPause
+		// 確認有進入onPause
 		Log.d("debug", "onPause running");
 		saveThePreferences();
 	}// end of onPause
@@ -127,15 +125,14 @@ public class CameraActivity extends Activity {
 		float bearing = cp.bearing;
 		float tilt = cp.tilt;
 		float zoom = cp.zoom;
-		
-		
+
 		// 創造檔名，以及讀取模式。 SharedPreferences是儲存簡單的KEY-VALUE
 		SharedPreferences sp = getSharedPreferences("Preferences",
 				Context.MODE_PRIVATE);
 
 		// editor負責操作檔案
 		SharedPreferences.Editor spe = sp.edit();
-		//put key-value
+		// put key-value
 		spe.putString("latitude", lat);
 		spe.putString("longitude", lng);
 		spe.putFloat("bearing", bearing);
@@ -144,46 +141,41 @@ public class CameraActivity extends Activity {
 		// 完成必做，才會修改
 		spe.commit();
 
-
 	}// end of saveTheLastCP
-	
-	
-	public void onCameraList(View view){
+
+	public void onCameraList(View view) {
 		Intent intent = new Intent(this, CameraListActivity.class);
 		startActivity(intent);
 	}
-	
-	
+
 	public void onSaveCamera(View view) { // call from XML
-		// 存檔等待
-		progressDialog.setTitle("Saving");
-		progressDialog.setMessage("Please Wait.");
-		progressDialog.show();
+		//this是只當下的context
+		AlertDialog.Builder aDialogBuilder = new AlertDialog.Builder(this);
 
-		// 將CameraPosition的 lat lng分開，用LatLng class接
-		CameraPosition cp = gMap.getCameraPosition();
-		LatLng save = cp.target;
-		Double lat = save.latitude;
-		Double lng = save.longitude;
+		//layoutInflater是將xml轉為View的基本
+		LayoutInflater inflater = this.getLayoutInflater();
+		aDialogBuilder.setView(inflater.inflate(R.layout.camera_save_dialog, null));
+		// 創造按鈕
+		aDialogBuilder.setPositiveButton("Save",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				}); // end of setPositiveButton
 
-		// cpp必須new在這裡，才能產生新的ObjectID
-		cpp = new CameraPositionParse();
-		cpp.setLatitude(lat);
-		cpp.setLongtitude(lng);
-		cpp.saveEventually(new SaveCallback() {
-			@Override
-			public void done(ParseException e) {
-				progressDialog.dismiss();
-			}
-		});
-		// // 最簡單的ParseObject，官方建議使用subclass可加快速度
-		// ParseObject cameraLocation = new ParseObject("cameraLocation");
-		// cameraLocation.put("latitude", lat);
-		// cameraLocation.put("longitude", lng);
-		// // 存檔有四種，記得使用saveCallBack，不然就是不要main thread
-		// // 1.saveInBackground，背景存檔
-		// // 2.saveEventually，無網路時會暫存，等下次連線再存檔
-		// // 3.saveAll(object)將list object都存檔
+		aDialogBuilder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}// end of setNegativeButton
+				});
+
+		// 3. Get the AlertDialog from create()=> do extra processing
+		// bulider.show()是在同一個process
+		AlertDialog alertDialog = aDialogBuilder.create();
+		// alerDialog一定要show
+		alertDialog.show();
+
 	} // end of onSaveCamera
 
 	// 地圖傾斜角度功能==============================================
