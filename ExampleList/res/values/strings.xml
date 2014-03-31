@@ -4,6 +4,7 @@
     <string name="app_name">ExampleList</string>
     <string name="action_settings">Settings</string>
     <string name="camera_label">Camera Set</string>
+    <string name="camera_list_label">Camera List</string>
     <string name="camera_description">中心和點擊位置、傾角、parse紀錄</string>
     <string name="press_position">press position:(tap or long press on the map)</string>
     <string name="example1_label">Change Map Type</string>
@@ -18,7 +19,7 @@
     <string name="normal">Normal</string>
     <string name="satellite">Satellite</string>
     <string name="terrain">Terrain</string>
-    <string name="memory_Camera">Memory Camera</string>
+    <string name="Camera_List">Memory Camera</string>
     <string name="save_Camera">Save Camera</string>
     <string name="up_arrow">\u2191</string>
 

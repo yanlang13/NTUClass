@@ -16,6 +16,7 @@ import com.parse.SaveCallback;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.sax.EndElementListener;
@@ -51,12 +52,17 @@ public class CameraActivity extends Activity {
 				Context.MODE_PRIVATE);
 		String latString = sp.getString("latitude", "0.0");
 		String lngString = sp.getString("longitude", "0.0");
+		float bearing = sp.getFloat("bearing", 0);
+		float tilt = sp.getFloat("tilt", 0);
+		float zoom = sp.getFloat("zoom", 0);
 		//將string 轉為latlng
 		LatLng lastPosition = new LatLng(Double.valueOf(latString), Double.valueOf(lngString));
 		
+		CameraPosition cp = new CameraPosition(lastPosition, zoom, tilt, bearing);
+		
 		//moreCamera設定camera
 		//CameraUpdateFactory是return CameraUpdate class
-		gMap.moveCamera(CameraUpdateFactory.newLatLng(lastPosition));
+		gMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
 		
 	} // end of callTheLastCameraPostion
 
@@ -118,7 +124,11 @@ public class CameraActivity extends Activity {
 		CameraPosition cp = gMap.getCameraPosition();
 		String lat = String.valueOf(cp.target.latitude);
 		String lng = String.valueOf(cp.target.longitude);
-
+		float bearing = cp.bearing;
+		float tilt = cp.tilt;
+		float zoom = cp.zoom;
+		
+		
 		// 創造檔名，以及讀取模式。 SharedPreferences是儲存簡單的KEY-VALUE
 		SharedPreferences sp = getSharedPreferences("Preferences",
 				Context.MODE_PRIVATE);
@@ -128,12 +138,22 @@ public class CameraActivity extends Activity {
 		//put key-value
 		spe.putString("latitude", lat);
 		spe.putString("longitude", lng);
+		spe.putFloat("bearing", bearing);
+		spe.putFloat("tilt", tilt);
+		spe.putFloat("zoom", zoom);
 		// 完成必做，才會修改
 		spe.commit();
 
 
 	}// end of saveTheLastCP
-
+	
+	
+	public void onCameraList(View view){
+		Intent intent = new Intent(this, CameraListActivity.class);
+		startActivity(intent);
+	}
+	
+	
 	public void onSaveCamera(View view) { // call from XML
 		// 存檔等待
 		progressDialog.setTitle("Saving");
