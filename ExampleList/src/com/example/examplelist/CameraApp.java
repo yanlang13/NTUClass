@@ -2,7 +2,6 @@ package com.example.examplelist;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
-
 import android.app.Application;
 
 public class CameraApp extends Application {
