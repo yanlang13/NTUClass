@@ -34,6 +34,7 @@ public class CameraActivity extends Activity {
 	private TextView tvPress, tvCamera;
 	private TextView tvDialogName, tvDialogDesc;
 	private ProgressDialog progressDialog;
+	final private int CameraList = 0;
 
 	public void onCreate(Bundle saveInstanceState) {
 		super.onCreate(saveInstanceState);
@@ -146,7 +147,9 @@ public class CameraActivity extends Activity {
 
 	public void onCameraList(View view) { // call from XML
 		Intent intent = new Intent(this, CameraListActivity.class);
-		startActivity(intent);
+
+		startActivityForResult(intent, CameraList);
+
 	}// end of onCameraList
 
 	public void onSaveCamera(View view) { // call from XML
@@ -171,7 +174,7 @@ public class CameraActivity extends Activity {
 						progressDialog.setTitle("Saving");
 						progressDialog.setMessage("Please Wait.");
 						progressDialog.show();
-						
+
 						CharSequence csName = tvDialogName.getText();
 						CharSequence csDesc = tvDialogDesc.getText();
 						CameraPosition cp = gMap.getCameraPosition();
@@ -189,13 +192,14 @@ public class CameraActivity extends Activity {
 						csp.setBearing(bearing);
 						csp.setTilt(tilt);
 						csp.setZoom(zoom);
+
 						csp.saveEventually(new SaveCallback() {
 							@Override
 							public void done(ParseException e) {
 								progressDialog.dismiss();
 							}
 						});
-						
+
 					}
 				}); // end of setPositiveButton
 
@@ -212,10 +216,7 @@ public class CameraActivity extends Activity {
 		alertDialog.show();
 
 	} // end of onSaveCamera
-	
-	
-	
-	// 地圖傾斜角度功能==============================================
+
 	public void onTiltMore(View v) { // call from XML
 		// getCameraPosition()取得camera的位置(是CameraPostion Class)
 		// return the center of the padded region.
@@ -266,6 +267,5 @@ public class CameraActivity extends Activity {
 	private void changeCamera(CameraUpdate update, CancelableCallback callback) {// call
 		gMap.animateCamera(update, callback);
 	}// end of changeCamera
-		// 地圖傾斜角度功能==============================================
 }// end of CameraActivity
 
