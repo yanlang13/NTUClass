@@ -1,7 +1,5 @@
 package com.example.examplelist;
 
-import javax.security.auth.PrivateCredentialPermission;
-
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,20 +28,19 @@ import android.widget.Toast;
 public class CameraActivity extends Activity {
 
 	private GoogleMap gMap;
-	private TextView pressTextView, cameraTextView;
+	private TextView tvPress, tvCamera;
+	private TextView tvDialogName, tvDialogDesc;
 
 	public void onCreate(Bundle saveInstanceState) {
-
 		super.onCreate(saveInstanceState);
 		setContentView(R.layout.camera);
 		setUpMapIfNeeded();
+		tvPress = (TextView) findViewById(R.id.press_position);
+		tvCamera = (TextView) findViewById(R.id.camera_position);
 
-		pressTextView = (TextView) findViewById(R.id.press_position);
-		cameraTextView = (TextView) findViewById(R.id.camera_position);
-		callTheLastCameraPostion();
 	}// end of onCreate
 
-	private void callTheLastCameraPostion() { // call from onCreate
+	public void callTheLastCameraPostion() { // call from onCreate
 		// 取回sharePrefrences中的CameraPosition
 		SharedPreferences sp = getSharedPreferences("Preferences",
 				Context.MODE_PRIVATE);
@@ -90,22 +88,21 @@ public class CameraActivity extends Activity {
 		gMap.setOnCameraChangeListener(new OnCameraChangeListener() {
 			@Override
 			public void onCameraChange(CameraPosition cp) {
-				cameraTextView.setText("Camera Centre: " + cp.target.toString());
+				tvCamera.setText("Camera Centre: " + cp.target.toString());
 			}
 		});// end of gMap.setOnCameraChangeListener
 
 		gMap.setOnMapClickListener(new OnMapClickListener() {
 			@Override
 			public void onMapClick(LatLng point) {
-				pressTextView.setText("tap position: " + point.toString());
+				tvPress.setText("tap position: " + point.toString());
 			}
 		});// end of gMap.setOnMapClickListener
 
 		gMap.setOnMapLongClickListener(new OnMapLongClickListener() {
 			@Override
 			public void onMapLongClick(LatLng point) {
-				pressTextView.setText("long pressed position: "
-						+ point.toString());
+				tvPress.setText("long pressed position: " + point.toString());
 			}
 		});// end of gMap.setOnMapLongClickListener
 	} // end of setUpMapListener
@@ -113,7 +110,6 @@ public class CameraActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		// 確認有進入onPause
-		Log.d("debug", "onPause running");
 		saveThePreferences();
 	}// end of onPause
 
@@ -143,23 +139,32 @@ public class CameraActivity extends Activity {
 
 	}// end of saveTheLastCP
 
-	public void onCameraList(View view) {
+	public void onCameraList(View view) { // call from XML
 		Intent intent = new Intent(this, CameraListActivity.class);
 		startActivity(intent);
-	}
+	}// end of onCameraList
 
 	public void onSaveCamera(View view) { // call from XML
-		//this是只當下的context
+		// this是只當下的context
 		AlertDialog.Builder aDialogBuilder = new AlertDialog.Builder(this);
-
-		//layoutInflater是將xml轉為View的基本
+		// layoutInflater是將xml轉為View的基本
 		LayoutInflater inflater = this.getLayoutInflater();
-		aDialogBuilder.setView(inflater.inflate(R.layout.camera_save_dialog, null));
+
+		// 這邊把view取出來，是為了取得view下面的textview
+		View dialogview = inflater.inflate(R.layout.camera_save_dialog, null);
+		aDialogBuilder.setView(dialogview);
+
+		tvDialogName = (TextView) dialogview.findViewById(R.id.dialog_name);
+		tvDialogDesc = (TextView) dialogview
+				.findViewById(R.id.dialog_description);
+
 		// 創造按鈕
 		aDialogBuilder.setPositiveButton("Save",
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						CharSequence cs = tvDialogName.getText();
+						Toast.makeText(getApplication(), cs, Toast.LENGTH_LONG).show();
 					}
 				}); // end of setPositiveButton
 
@@ -169,8 +174,7 @@ public class CameraActivity extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 					}// end of setNegativeButton
 				});
-
-		// 3. Get the AlertDialog from create()=> do extra processing
+		// Get the AlertDialog from create()=> do extra processing
 		// bulider.show()是在同一個process
 		AlertDialog alertDialog = aDialogBuilder.create();
 		// alerDialog一定要show

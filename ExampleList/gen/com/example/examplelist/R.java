@@ -230,9 +230,9 @@ containing a value of this type.
         public static final int camera_list=0x7f050008;
         public static final int camera_position=0x7f050006;
         public static final int description=0x7f050015;
+        public static final int dialog_description=0x7f050010;
+        public static final int dialog_name=0x7f05000e;
         public static final int dialog_title=0x7f05000c;
-        public static final int editText1=0x7f05000e;
-        public static final int editText2=0x7f050010;
         public static final int gMap=0x7f050007;
         public static final int hybrid=0x7f050004;
         public static final int mMap=0x7f050011;

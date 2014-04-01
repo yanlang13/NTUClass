@@ -14,51 +14,45 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:gravity="center_vertical"
-            android:text="Save:"
-            android:textSize="32dp" />
+            android:text="Save Data:"
+            android:textSize="32sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#FFA500" />
-
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minLines="1"
+        android:paddingTop="10dp"
+        android:text="Postion Name:"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/dialog_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Postion Name:"
-            android:textSize="16dp" />
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:ems="10"
-            android:maxLength="50" >
-
-            <requestFocus />
-        </EditText>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="enter something"
+        android:maxLength="50" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:text="Description:"
-        android:textSize="16dp" />
+        android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/dialog_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" />
+        android:ems="10"
+        android:hint="enter something" />
 
 </LinearLayout>
