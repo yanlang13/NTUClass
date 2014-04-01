@@ -10,9 +10,12 @@ import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +33,7 @@ public class CameraActivity extends Activity {
 	private GoogleMap gMap;
 	private TextView tvPress, tvCamera;
 	private TextView tvDialogName, tvDialogDesc;
+	private ProgressDialog progressDialog;
 
 	public void onCreate(Bundle saveInstanceState) {
 		super.onCreate(saveInstanceState);
@@ -37,6 +41,7 @@ public class CameraActivity extends Activity {
 		setUpMapIfNeeded();
 		tvPress = (TextView) findViewById(R.id.press_position);
 		tvCamera = (TextView) findViewById(R.id.camera_position);
+		progressDialog = new ProgressDialog(this);
 
 	}// end of onCreate
 
@@ -163,8 +168,34 @@ public class CameraActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						CharSequence cs = tvDialogName.getText();
-						Toast.makeText(getApplication(), cs, Toast.LENGTH_LONG).show();
+						progressDialog.setTitle("Saving");
+						progressDialog.setMessage("Please Wait.");
+						progressDialog.show();
+						
+						CharSequence csName = tvDialogName.getText();
+						CharSequence csDesc = tvDialogDesc.getText();
+						CameraPosition cp = gMap.getCameraPosition();
+						String lat = String.valueOf(cp.target.latitude);
+						String lng = String.valueOf(cp.target.longitude);
+						float bearing = cp.bearing;
+						float tilt = cp.tilt;
+						float zoom = cp.zoom;
+						
+						CameraSaveParse csp = new CameraSaveParse();
+						csp.setName(csName.toString());
+						csp.setDesc(csDesc.toString());
+						csp.setLatitude(lat);
+						csp.setLongtitude(lng);
+						csp.setBearing(bearing);
+						csp.setTilt(tilt);
+						csp.setZoom(zoom);
+						csp.saveEventually(new SaveCallback() {
+							@Override
+							public void done(ParseException e) {
+								progressDialog.dismiss();
+							}
+						});
+						
 					}
 				}); // end of setPositiveButton
 
@@ -181,7 +212,9 @@ public class CameraActivity extends Activity {
 		alertDialog.show();
 
 	} // end of onSaveCamera
-
+	
+	
+	
 	// 地圖傾斜角度功能==============================================
 	public void onTiltMore(View v) { // call from XML
 		// getCameraPosition()取得camera的位置(是CameraPostion Class)

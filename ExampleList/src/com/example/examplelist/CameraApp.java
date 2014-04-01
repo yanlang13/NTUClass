@@ -12,7 +12,7 @@ public class CameraApp extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		ParseObject.registerSubclass(CameraPositionParse.class);
+		ParseObject.registerSubclass(CameraSaveParse.class);
 		Parse.initialize(this, PAESE_APPLICATION_ID, PAESE_CLIENT_KEY);
 	}// end of onCreate
 	

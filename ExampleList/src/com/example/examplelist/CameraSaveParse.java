@@ -1,0 +1,72 @@
+package com.example.examplelist;
+
+
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
+@ParseClassName("CameraSave")
+public class CameraSaveParse extends ParseObject {
+
+	public void setName(String name){
+		put("name", name);
+	}// end of setName
+	
+	public void setDesc(String desc){
+		put("Description", desc);
+	} // end of setDesc
+	
+	public void setLatitude(String lat) {
+		put("Latitude", lat);
+	}// end of setLatitude
+
+	public void setLongtitude(String lng) {
+		put("Longtitude", lng);
+	}// end of setLongtitude
+
+	public void setBearing(float bearing) {
+		put("Bearing", bearing);
+	}// end of setBearing
+
+	public void setTilt(float tilt) {
+		put("Tilt", tilt);
+	}// end of setTilt
+
+	public void setZoom(float zoom) {
+		put("Zoom", zoom);
+	}// end of setZoom
+
+	// ===================================================
+	
+	public String getName(){
+		return getString("Name");
+	}// end of getName
+	
+	public String getDesc(){
+		return getString("Description");
+	} // end of getDesc
+	
+	
+	public String getLatitude() {
+		return getString("Latitude");
+	}// end of getLatitude
+
+	public String getLongtitude() {
+		return getString("Longtitude");
+	}// end of getLongtitude
+
+	public float getBearing() {
+		String s = getString("Bearing");
+		return Float.parseFloat(s);
+	}// end of getBearing
+
+	public float getTilt() {
+		String s = getString("Tilt");
+		return Float.parseFloat(s);
+	}// end of getTilt
+
+	public float getZoom() {
+		String s = getString("Zoom");
+		return Float.parseFloat(s);
+	}// end of getZoom
+}// end of CameraPositionParse
+
