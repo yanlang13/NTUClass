@@ -1,22 +1,18 @@
 package com.example.examplelist;
 
-
-import android.util.Log;
-
 import com.parse.ParseClassName;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 @ParseClassName("CameraSave")
 public class CameraSaveParse extends ParseObject {
-	public void setName(String name){
+	public void setName(String name) {
 		put("Name", name);
 	}// end of setName
-	
-	public void setDesc(String desc){
+
+	public void setDesc(String desc) {
 		put("Description", desc);
 	} // end of setDesc
-	
+
 	public void setLatitude(String lat) {
 		put("Latitude", lat);
 	}// end of setLatitude
@@ -38,16 +34,15 @@ public class CameraSaveParse extends ParseObject {
 	}// end of setZoom
 
 	// ===================================================
-	
-	public String getName(){
+
+	public String getName() {
 		return getString("Name");
 	}// end of getName
-	
-	public String getDesc(){
+
+	public String getDesc() {
 		return getString("Description");
 	} // end of getDesc
-	
-	
+
 	public String getLatitude() {
 		return getString("Latitude");
 	}// end of getLatitude

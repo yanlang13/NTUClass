@@ -1,6 +1,5 @@
 package com.example.examplelist;
 
-import java.util.List;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,11 +11,8 @@ import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 import android.app.Activity;
@@ -27,12 +23,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CameraActivity extends Activity {
 
@@ -45,10 +38,10 @@ public class CameraActivity extends Activity {
 		super.onCreate(saveInstanceState);
 		setContentView(R.layout.camera);
 		setUpMapIfNeeded();
+		callTheLastCameraPostion();
 		tvPress = (TextView) findViewById(R.id.press_position);
 		tvCamera = (TextView) findViewById(R.id.camera_position);
 		progressDialog = new ProgressDialog(this);
-
 	}// end of onCreate
 
 	/*
@@ -139,27 +132,22 @@ public class CameraActivity extends Activity {
 	public void saveThePreferences() {// call from onPause
 		// 取得cp
 		CameraPosition cp = gMap.getCameraPosition();
-		String lat = String.valueOf(cp.target.latitude);
-		String lng = String.valueOf(cp.target.longitude);
-		float bearing = cp.bearing;
-		float tilt = cp.tilt;
-		float zoom = cp.zoom;
 
 		// 創造檔名，以及讀取模式。 SharedPreferences是儲存簡單的KEY-VALUE
+		//MODE_PRIVATE只有這個APP能讀取檔案(前提是無刷機，所以檔案有被改的風險)
 		SharedPreferences sp = getSharedPreferences("Preferences",
 				Context.MODE_PRIVATE);
 
 		// editor負責操作檔案
 		SharedPreferences.Editor spe = sp.edit();
 		// put key-value
-		spe.putString("latitude", lat);
-		spe.putString("longitude", lng);
-		spe.putFloat("bearing", bearing);
-		spe.putFloat("tilt", tilt);
-		spe.putFloat("zoom", zoom);
-		// 完成必做，才會修改
+		spe.putString("latitude", String.valueOf(cp.target.latitude));
+		spe.putString("longitude", String.valueOf(cp.target.longitude));
+		spe.putFloat("bearing", cp.bearing);
+		spe.putFloat("tilt", cp.tilt);
+		spe.putFloat("zoom", cp.zoom);
+		// 完成必做commit()，才會修改
 		spe.commit();
-
 	}// end of saveThePreferences
 
 	/*
@@ -196,27 +184,19 @@ public class CameraActivity extends Activity {
 						progressDialog.setMessage("Please Wait.");
 						progressDialog.show();
 
-						CharSequence csName = tvDialogName.getText();
-						CharSequence csDesc = tvDialogDesc.getText();
 						CameraPosition cp = gMap.getCameraPosition();
-						String lat = String.valueOf(cp.target.latitude);
-						String lng = String.valueOf(cp.target.longitude);
-						float bearing = cp.bearing;
-						float tilt = cp.tilt;
-						float zoom = cp.zoom;
+						
+						//目前parseGeoPoint只能放這邊，放到CameraSaveParse時會發生錯誤
 						ParseGeoPoint pgp = new ParseGeoPoint(
 								cp.target.latitude, cp.target.longitude);
-						
+
 						CameraSaveParse csp = new CameraSaveParse();
 						csp.put("ParseGeoPoint", pgp);
-						
-						csp.setName(csName.toString());
-						csp.setDesc(csDesc.toString());
-						csp.setLatitude(lat);
-						csp.setLongtitude(lng);
-						csp.setBearing(bearing);
-						csp.setTilt(tilt);
-						csp.setZoom(zoom);
+						csp.setName(tvDialogName.getText().toString());
+						csp.setDesc(tvDialogDesc.getText().toString());
+						csp.setBearing(cp.bearing);
+						csp.setTilt(cp.tilt);
+						csp.setZoom(cp.zoom);
 						csp.saveEventually(new SaveCallback() {
 							@Override
 							public void done(ParseException e) {
