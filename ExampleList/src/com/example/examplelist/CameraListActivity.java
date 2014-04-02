@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CameraListActivity extends Activity {
 	private String information;
@@ -52,37 +53,40 @@ public class CameraListActivity extends Activity {
 		query.findInBackground(new FindCallback<CameraSaveParse>() {
 			@Override
 			public void done(List<CameraSaveParse> results, ParseException e) {
-				information = "";
-				for (CameraSaveParse csp : results) {
-					arrayListName.add(csp.getName());
-					arrayListDesc.add(csp.getDesc());
-					arrayListLat.add(csp.getLatitude());
-					arrayListLng.add(csp.getLongtitude());
-				}// end of for each
-				ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-				for (int i = 0; i < arrayListName.size(); i++) {
-					HashMap<String, Object> item = new HashMap<>();
-					item.put("Name", arrayListName.get(i));
-					item.put("Desc", arrayListDesc.get(i));
-					item.put("Lat", arrayListLat.get(i));
-					item.put("Lng", arrayListLng.get(i));
-					list.add(item);
+				
+				//確認Parse沒有問題
+				if (e == null) {
+					information = "";
+					for (CameraSaveParse csp : results) {
+						arrayListName.add(csp.getName());
+						arrayListDesc.add(csp.getDesc());
+						arrayListLat.add(csp.getLatitude());
+						arrayListLng.add(csp.getLongtitude());
+					}// end of for each
+					ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+					for (int i = 0; i < arrayListName.size(); i++) {
+						HashMap<String, Object> item = new HashMap<>();
+						item.put("Name", arrayListName.get(i));
+						item.put("Desc", arrayListDesc.get(i));
+						item.put("Lat", arrayListLat.get(i));
+						item.put("Lng", arrayListLng.get(i));
+						list.add(item);
+					}
+
+					// 新增SimpleAdapter
+					String[] from = { "Name", "Desc", "Lat", "Lng" };
+					int[] to = { R.id.list_name, R.id.list_desc, R.id.list_lat,
+							R.id.list_lng };
+
+					SimpleAdapter simpleAdapter;
+					simpleAdapter = new SimpleAdapter(getApplication(), list,
+							R.layout.camera_list_view, from, to);
+
+					// ListActivity設定adapter
+					listView.setAdapter(simpleAdapter);
+				}else{
+					Toast.makeText(getApplication(), e.toString(), Toast.LENGTH_LONG).show();
 				}
-
-				// 新增SimpleAdapter
-				String[] from = { "Name", "Desc", "Lat", "Lng" };
-				int[] to = { R.id.list_name, R.id.list_desc, R.id.list_lat,
-						R.id.list_lng };
-
-				SimpleAdapter simpleAdapter;
-				simpleAdapter = new SimpleAdapter(getApplication(), list,
-						R.layout.camera_list_view, from, to);
-
-				// ListActivity設定adapter
-				listView.setAdapter(simpleAdapter);
-
-				// 啟用按鍵過濾功能，輸入s 留下s開頭的List
-				listView.setTextFilterEnabled(true);
 				progressDialog.dismiss();
 			}// end of done
 		});// end of query.findInBackground

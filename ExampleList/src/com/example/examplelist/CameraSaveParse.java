@@ -1,12 +1,14 @@
 package com.example.examplelist;
 
 
+import android.util.Log;
+
 import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 @ParseClassName("CameraSave")
 public class CameraSaveParse extends ParseObject {
-
 	public void setName(String name){
 		put("Name", name);
 	}// end of setName

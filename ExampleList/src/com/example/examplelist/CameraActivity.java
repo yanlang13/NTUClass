@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
@@ -203,8 +204,12 @@ public class CameraActivity extends Activity {
 						float bearing = cp.bearing;
 						float tilt = cp.tilt;
 						float zoom = cp.zoom;
-
+						ParseGeoPoint pgp = new ParseGeoPoint(
+								cp.target.latitude, cp.target.longitude);
+						
 						CameraSaveParse csp = new CameraSaveParse();
+						csp.put("ParseGeoPoint", pgp);
+						
 						csp.setName(csName.toString());
 						csp.setDesc(csDesc.toString());
 						csp.setLatitude(lat);
@@ -212,7 +217,6 @@ public class CameraActivity extends Activity {
 						csp.setBearing(bearing);
 						csp.setTilt(tilt);
 						csp.setZoom(zoom);
-
 						csp.saveEventually(new SaveCallback() {
 							@Override
 							public void done(ParseException e) {
