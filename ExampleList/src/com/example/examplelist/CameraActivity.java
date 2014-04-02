@@ -1,5 +1,7 @@
 package com.example.examplelist;
 
+import java.util.List;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,7 +12,10 @@ import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 import android.app.Activity;
@@ -45,6 +50,9 @@ public class CameraActivity extends Activity {
 
 	}// end of onCreate
 
+	/*
+	 * callTheLastCameraPostion():打開時，抓回上次的座標。
+	 */
 	public void callTheLastCameraPostion() { // call from onCreate
 		// 取回sharePrefrences中的CameraPosition
 		SharedPreferences sp = getSharedPreferences("Preferences",
@@ -71,8 +79,12 @@ public class CameraActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		setUpMapIfNeeded();
+
 	}// end of onResume()
 
+	/*
+	 * setUpMapIfNeeded()，處理地圖沒放入的問題(googlemap內建)
+	 */
 	private void setUpMapIfNeeded() { // call from onResume()
 		if (gMap == null) {
 			gMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -87,6 +99,9 @@ public class CameraActivity extends Activity {
 		}
 	}// end of setUpMapIfNeeded()
 
+	/*
+	 * setUpMapListener監聽的googlemap狀況
+	 */
 	private void setUpMapListener() { // call from setUpMapIfNeeded
 		// 一種是implement listener，就可以直接呼叫method。
 		// 一種就是使用匿名類別
@@ -114,10 +129,12 @@ public class CameraActivity extends Activity {
 
 	protected void onPause() {
 		super.onPause();
-		// 確認有進入onPause
 		saveThePreferences();
 	}// end of onPause
 
+	/*
+	 * saveThePreferences()，抓住最後的位置
+	 */
 	public void saveThePreferences() {// call from onPause
 		// 取得cp
 		CameraPosition cp = gMap.getCameraPosition();
@@ -142,13 +159,19 @@ public class CameraActivity extends Activity {
 		// 完成必做，才會修改
 		spe.commit();
 
-	}// end of saveTheLastCP
+	}// end of saveThePreferences
 
+	/*
+	 * onCameraList開啟CameraListActivity
+	 */
 	public void onCameraList(View view) { // call from XML
 		Intent intent = new Intent(this, CameraListActivity.class);
 		startActivity(intent);
 	}// end of onCameraList
 
+	/*
+	 * onSaveCamera存檔功能
+	 */
 	public void onSaveCamera(View view) { // call from XML
 		// this是只當下的context
 		AlertDialog.Builder aDialogBuilder = new AlertDialog.Builder(this);
@@ -180,7 +203,7 @@ public class CameraActivity extends Activity {
 						float bearing = cp.bearing;
 						float tilt = cp.tilt;
 						float zoom = cp.zoom;
-						
+
 						CameraSaveParse csp = new CameraSaveParse();
 						csp.setName(csName.toString());
 						csp.setDesc(csDesc.toString());
@@ -214,6 +237,9 @@ public class CameraActivity extends Activity {
 
 	} // end of onSaveCamera
 
+	/*
+	 * onTiltMore傾斜地圖
+	 */
 	public void onTiltMore(View v) { // call from XML
 		// getCameraPosition()取得camera的位置(是CameraPostion Class)
 		// return the center of the padded region.
@@ -233,6 +259,9 @@ public class CameraActivity extends Activity {
 				.newCameraPosition(updateCameraPosition));
 	}// end of onTiltMore
 
+	/*
+	 * onTiltLess傾斜地圖
+	 */
 	public void onTiltLess(View v) { // call from XML
 		CameraPosition currentCameraPosition = gMap.getCameraPosition();
 		float currentTilt = currentCameraPosition.tilt;
@@ -247,6 +276,9 @@ public class CameraActivity extends Activity {
 				.newCameraPosition(updateCameraPosition));
 	}// end of onTiltLess
 
+	/*
+	 * changeCamera傾斜地圖的動作
+	 */
 	private void changeCamera(CameraUpdate update) {// call from onTiltMore, on
 													// TiltLess
 		// 三種移動cameraPosition的方式(接CameraUpdate Class)

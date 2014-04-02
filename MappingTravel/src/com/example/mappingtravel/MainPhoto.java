@@ -53,7 +53,7 @@ public class MainPhoto extends ActivityWithMenu {
 		for (int i = 0; i < mPlaces.length; i++) {
 			HashMap<String, Object> item = new HashMap<String, Object>();
 			item.put("pic", mPics[i]);
-			item.put("food", mFoods[i]);
+			item.put("food", mFoods[i]); 
 			item.put("place", "地點：" + mPlaces[i]);
 			item.put("rating", "評分：" + mRatings[i] + " 星");
 			list.add(item);
