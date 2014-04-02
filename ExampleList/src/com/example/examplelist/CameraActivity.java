@@ -34,7 +34,6 @@ public class CameraActivity extends Activity {
 	private TextView tvPress, tvCamera;
 	private TextView tvDialogName, tvDialogDesc;
 	private ProgressDialog progressDialog;
-	final private int CameraList = 0;
 
 	public void onCreate(Bundle saveInstanceState) {
 		super.onCreate(saveInstanceState);
@@ -147,9 +146,7 @@ public class CameraActivity extends Activity {
 
 	public void onCameraList(View view) { // call from XML
 		Intent intent = new Intent(this, CameraListActivity.class);
-
-		startActivityForResult(intent, CameraList);
-
+		startActivity(intent);
 	}// end of onCameraList
 
 	public void onSaveCamera(View view) { // call from XML

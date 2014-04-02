@@ -8,7 +8,7 @@ import com.parse.ParseObject;
 public class CameraSaveParse extends ParseObject {
 
 	public void setName(String name){
-		put("name", name);
+		put("Name", name);
 	}// end of setName
 	
 	public void setDesc(String desc){
