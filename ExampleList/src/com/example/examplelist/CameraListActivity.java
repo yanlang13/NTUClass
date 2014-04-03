@@ -61,33 +61,32 @@ public class CameraListActivity extends Activity {
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				setAlertDialog().show();
+				 setAlertDialog(position).show();
 				return false;
-			}//end of onItemLongClick
+			}// end of onItemLongClick
 		});// end of listView.setOnItemLongClickListener
 	}// end of setUpAllListener()
-	
-	private AlertDialog setAlertDialog(){// call from setUpAllListener()
+
+	private AlertDialog setAlertDialog(int position) {// call from setUpAllListener()
 		AlertDialog.Builder aDialogBuilder = new AlertDialog.Builder(
 				CameraListActivity.this);
-//		LayoutInflater inflater = CameraListActivity.this.getLayoutInflater();
-//		View dialogView = inflater.inflate(R.layout.camera_list_dialog, null);
-//		aDialogBuilder.setView(dialogView);
 		
-		final String editSelect [] = new String[]{"Modify", "Delete"};
-		aDialogBuilder.setItems(editSelect , new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Toast.makeText(CameraListActivity.this, editSelect[which], Toast.LENGTH_SHORT).show();
-			}
-		});
-		
+		//透過position抓到parse抓下來的資料
+		String name = arrayListName.get(position);
+		aDialogBuilder.setTitle(name);
+
+		final String editSelect[] = new String[] { "Modify", "Delete" };
+		aDialogBuilder.setItems(editSelect,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+					}
+				});
+
 		return aDialogBuilder.create();
-		
 	}// end of setAlertDialog()
-	
-	
+
 	// {{getDataFromParse()取得parse資料，setUpListView()放到lsit
 	// 取得parse上的資料
 	private void getDataFromParse() { // call from onCreate
