@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="@string/Camera_List"
+                    android:text="@string/camera_list"
                     android:onClick="onCameraList" />
 
                 <Button
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:onClick="onSaveCamera"
-                    android:text="@string/save_Camera" />
+                    android:text="@string/save_camera" />
 
                 <Button
                     android:id="@+id/tilt_more"
