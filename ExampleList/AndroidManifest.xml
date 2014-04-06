@@ -66,6 +66,10 @@
             android:name="com.example.examplelist.CameraListActivity"
             android:label="@string/camera_list_label" >
         </activity>
+                <activity
+            android:name="com.example.examplelist.CameraModify"
+            android:label="@string/camera_list_label" >
+        </activity>
     </application>
 
 </manifest>

@@ -5,16 +5,20 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Callable;
+
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 
+import android.R.array;
 import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.StaticLayout;
 import android.util.Log;
@@ -52,48 +56,93 @@ public class CameraListActivity extends Activity {
 
 		progressDialog.show();
 		getDataFromParse();
-		setUpAllListener();
+		setUpLongListener();
 
 	}// end of onCreate
 
-	// 所有的listener
-	private void setUpAllListener() { // call from onCreate
+	// setUpLongListener()，抓listView的長點擊
+	private void setUpLongListener() { // call from onCreate
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				 setAlertDialog(position).show();
+				setAlertDialog(position).show();
 				return false;
 			}// end of onItemLongClick
 		});// end of listView.setOnItemLongClickListener
 	}// end of setUpAllListener()
 
-	private AlertDialog setAlertDialog(int position) {// call from setUpAllListener()
+	private AlertDialog setAlertDialog(int position) {// call from
+														// setUpAllListener()
 		AlertDialog.Builder aDialogBuilder = new AlertDialog.Builder(
 				CameraListActivity.this);
-		
-		//透過position抓到parse抓下來的資料
-		String name = arrayListName.get(position);
-		aDialogBuilder.setTitle(name);
+		// 透過position抓到parse抓下來的資料
+		final String parseName = arrayListName.get(position);
+		aDialogBuilder.setTitle(parseName);
 
 		final String editSelect[] = new String[] { "Modify", "Delete" };
+
+		// 監聽alertDialog
 		aDialogBuilder.setItems(editSelect,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
+						if (which == 0) {
+							// modify file
+							Intent intent = new Intent(CameraListActivity.this, CameraModify.class );
+							startActivity(intent);
+						} else if (which == 1) {
+							// delete file
+							delParseData(parseName);
+						} else {
+						}
 					}
 				});
-
 		return aDialogBuilder.create();
 	}// end of setAlertDialog()
 
-	// {{getDataFromParse()取得parse資料，setUpListView()放到lsit
-	// 取得parse上的資料
-	private void getDataFromParse() { // call from onCreate
-		// ParseQuery 使用 subclass CameraSaveParse
-		// getQuery Creates a new query for the given ParseObject subclass type.
+	// 透過name來刪除parse上面的檔案
+	private void delParseData(String parseName) {
+		final String parseName1 = parseName;
 		ParseQuery<CameraSaveParse> query = ParseQuery
 				.getQuery(CameraSaveParse.class);
+		progressDialog.setTitle("delete data");
+		progressDialog.show();
+		query.findInBackground(new FindCallback<CameraSaveParse>() {
+			@Override
+			public void done(List<CameraSaveParse> result, ParseException e) {
+				if(e ==null){
+					for(CameraSaveParse csp : result){
+						if(csp.getName().equals(parseName1)){
+							try {
+								csp.delete();
+								getDataFromParse();
+							} catch (ParseException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								Log.d("mydebug","e1.printStackTrace()");
+							}
+						}
+					}
+				}else{
+					Toast.makeText(getApplication(), e.toString(),
+							Toast.LENGTH_LONG).show();
+				}// end of if
+			}// end of done
+		});// end of query.findInBackground
+	}// end of delParseData
+
+	// {{getDataFromParse()取得parse資料，setUpListView()放到lsit
+	// 取得parse上的資料
+	private void getDataFromParse() { // call from onCreate, delParseData
+		// ParseQuery 使用 subclass CameraSaveParse
+		// getQuery Creates a new query for the given ParseObject subclass type.
+		
+		//直接清空array，確保每次parse抓的資料都能覆蓋舊有的
+		clearAllArrayList();
+		
+		ParseQuery<CameraSaveParse> query = ParseQuery
+				.getQuery(CameraSaveParse.class);
+		
 		query.findInBackground(new FindCallback<CameraSaveParse>() {
 			@Override
 			public void done(List<CameraSaveParse> results, ParseException e) {
@@ -112,12 +161,20 @@ public class CameraListActivity extends Activity {
 					Toast.makeText(getApplication(), e.toString(),
 							Toast.LENGTH_LONG).show();
 				}
-
 				progressDialog.dismiss();
 			}// end of done
 		});// end of query.findInBackground
 	}// end of getDataFromParse
-
+	
+	//清空暫存的arrayList
+	private void clearAllArrayList(){ // call from getDataFromParse()
+		arrayListName.clear();
+		arrayListDesc.clear();
+		arrayListLat.clear();
+		arrayListLng.clear();
+	}// end of clearAllArrayList
+	
+	
 	// 將parse資料放到listView
 	private void setUpListView() { // call from getDataFromParse()
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
@@ -135,10 +192,12 @@ public class CameraListActivity extends Activity {
 		int[] to = { R.id.list_name, R.id.list_desc, R.id.list_lat,
 				R.id.list_lng };
 
+		
 		SimpleAdapter simpleAdapter;
 		simpleAdapter = new SimpleAdapter(getApplication(), list,
 				R.layout.camera_list_view, from, to);
-
+		
+		
 		// ListActivity設定adapter
 		listView.setAdapter(simpleAdapter);
 	}// end of setListView
