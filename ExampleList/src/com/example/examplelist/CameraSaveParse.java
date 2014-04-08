@@ -5,6 +5,8 @@ import com.parse.ParseObject;
 
 @ParseClassName("CameraSave")
 public class CameraSaveParse extends ParseObject {
+	
+	
 	public void setName(String name) {
 		put("Name", name);
 	}// end of setName

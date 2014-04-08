@@ -16,10 +16,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
 
+import android.R.anim;
+import android.R.array;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore.Video;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -34,6 +40,9 @@ public class Example1Activity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.example1);
+		// add up action
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		setUpMapIfNeeded();
 
 		Spinner spinner = (Spinner) findViewById(R.id.spMapType);
@@ -63,6 +72,32 @@ public class Example1Activity extends Activity {
 			}
 		});// end of setOnItemSelectedListener
 	}// end of onCcreate{}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		// Respond to the action bar's Up/Home button
+		case android.R.id.home:
+			Intent upIntent = NavUtils.getParentActivityIntent(this);
+			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+				// This activity is NOT part of this app's task, so create a new
+				// task
+				// when navigating up, with a synthesized back stack.
+				TaskStackBuilder.create(this)
+				// Add all of this activity's parents to the back stack
+						.addNextIntentWithParentStack(upIntent)
+						// Navigate up to the closest parent
+						.startActivities();
+
+			} else {
+				// 簡易版一行即可
+				NavUtils.navigateUpFromSameTask(Example1Activity.this);
+			}
+
+		}
+		return super.onOptionsItemSelected(item);
+
+	}// end of on onOptionsItemSelected
 
 	private void setLayer(String layerName) { // call from
 												// setOnItemSelectedListener
