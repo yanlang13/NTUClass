@@ -75,28 +75,24 @@ public class Example1Activity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
 		// Respond to the action bar's Up/Home button
-		case android.R.id.home:
+		if(item.getItemId() == android.R.id.home){
 			Intent upIntent = NavUtils.getParentActivityIntent(this);
 			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
 				// This activity is NOT part of this app's task, so create a new
-				// task
-				// when navigating up, with a synthesized back stack.
+				// task when navigating up, with a synthesized back stack.
 				TaskStackBuilder.create(this)
 				// Add all of this activity's parents to the back stack
-						.addNextIntentWithParentStack(upIntent)
-						// Navigate up to the closest parent
-						.startActivities();
-
+				.addNextIntentWithParentStack(upIntent)
+				// Navigate up to the closest parent
+				.startActivities();
+				
 			} else {
 				// 簡易版一行即可
 				NavUtils.navigateUpFromSameTask(Example1Activity.this);
 			}
-
-		}
+		}//end of if item.getItemId
 		return super.onOptionsItemSelected(item);
-
 	}// end of on onOptionsItemSelected
 
 	private void setLayer(String layerName) { // call from

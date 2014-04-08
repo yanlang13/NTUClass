@@ -22,7 +22,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -36,14 +39,31 @@ public class CameraActivity extends Activity {
 	public void onCreate(Bundle saveInstanceState) {
 		super.onCreate(saveInstanceState);
 		setContentView(R.layout.camera);
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		setUpMapIfNeeded();
 		callTheLastCameraPostion();
 		tvPress = (TextView) findViewById(R.id.press_position);
 		tvCamera = (TextView) findViewById(R.id.camera_position);
 		progressDialog = new ProgressDialog(this);
 	}// end of onCreate
-
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == android.R.id.home){
+			Intent upIntent = NavUtils.getParentActivityIntent(this);
+			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+				TaskStackBuilder.create(this)
+				.addNextIntentWithParentStack(upIntent)
+				.startActivities();
+				
+			} else {
+				NavUtils.navigateUpFromSameTask(this);
+			}
+		}//end of if item.getItemId
+		return super.onOptionsItemSelected(item);
+	}// end of on onOptionsItemSelected
+	
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -129,7 +149,6 @@ public class CameraActivity extends Activity {
 						// 目前parseGeoPoint只能放這邊，放到CameraSaveParse時會發生錯誤
 						ParseGeoPoint pgp = new ParseGeoPoint(
 								cp.target.latitude, cp.target.longitude);
-
 						CameraSaveParse csp = new CameraSaveParse();
 						csp.put("ParseGeoPoint", pgp);
 						csp.setName(tvDialogName.getText().toString());
@@ -137,6 +156,7 @@ public class CameraActivity extends Activity {
 						csp.setBearing(cp.bearing);
 						csp.setTilt(cp.tilt);
 						csp.setZoom(cp.zoom);
+						
 						csp.saveEventually(new SaveCallback() {
 							@Override
 							public void done(ParseException e) {

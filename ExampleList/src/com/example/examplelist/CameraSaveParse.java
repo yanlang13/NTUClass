@@ -1,11 +1,17 @@
 package com.example.examplelist;
 
+
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.text.format.DateFormat;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 @ParseClassName("CameraSave")
 public class CameraSaveParse extends ParseObject {
-	
 	
 	public void setName(String name) {
 		put("Name", name);
@@ -36,7 +42,14 @@ public class CameraSaveParse extends ParseObject {
 	}// end of setZoom
 
 	// ===================================================
-
+	public String getDate(){
+		//PARSE 是GMT 0:00
+		Date date = getUpdatedAt();
+		//這個轉換，似乎會參考各地的時間
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("hh:mm:ss, yyyy/MM/dd");
+		return sDateFormat.format(date).toString();
+	}//end of getDate
+	
 	public String getName() {
 		return getString("Name");
 	}// end of getName
@@ -67,5 +80,6 @@ public class CameraSaveParse extends ParseObject {
 		String s = getString("Zoom");
 		return Float.parseFloat(s);
 	}// end of getZoom
+	
 }// end of CameraPositionParse
 

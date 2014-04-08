@@ -4,10 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <EditText
         android:id="@+id/camera_modify_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="modify" />
-
+        android:ems="10" >
+    </EditText>
+	    <EditText
+        android:id="@+id/camera_modify_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+    </EditText>
 </LinearLayout>

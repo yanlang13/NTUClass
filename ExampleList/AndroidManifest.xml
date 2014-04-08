@@ -57,23 +57,30 @@
         <activity
             android:name="com.example.examplelist.Example1Activity"
             android:label="@string/example1_label" >
-            
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.examplelist.MainActivity" />
-            
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.examplelist.MainActivity" />
         </activity>
         <activity
             android:name="com.example.examplelist.CameraActivity"
             android:label="@string/camera_label" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.examplelist.MainActivity" />
         </activity>
         <activity
             android:name="com.example.examplelist.CameraListActivity"
             android:label="@string/camera_list_label" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.examplelist.CameraActivity" />
         </activity>
-                <activity
+        <activity
             android:name="com.example.examplelist.CameraModify"
             android:label="@string/camera_list_label" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.examplelist.CameraListActivity" />
         </activity>
     </application>
 
