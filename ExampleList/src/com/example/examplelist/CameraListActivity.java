@@ -113,8 +113,10 @@ public class CameraListActivity extends Activity {
 							Intent intent = new Intent(CameraListActivity.this,
 									CameraModify.class);
 							Bundle bundle = new Bundle();
-							bundle.putString("Name", arrayListName.get(listPosition));
-							bundle.putString("DESC", arrayListDesc.get(listPosition));
+							bundle.putString("Name",
+									arrayListName.get(listPosition));
+							bundle.putString("Desc",
+									arrayListDesc.get(listPosition));
 							intent.putExtras(bundle);
 							startActivity(intent);
 						} else if (which == 1) {
@@ -144,9 +146,7 @@ public class CameraListActivity extends Activity {
 								csp.delete();
 								getDataFromParse();
 							} catch (ParseException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
-								Log.d("mydebug", "e1.printStackTrace()");
 							}
 						}
 					}

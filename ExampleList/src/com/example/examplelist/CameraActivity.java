@@ -163,7 +163,6 @@ public class CameraActivity extends Activity {
 								progressDialog.dismiss();
 							}
 						});
-
 					}
 				}); // end of setPositiveButton
 
